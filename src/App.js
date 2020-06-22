@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Switch, Route, Link } from 'react-router-dom'
 import './App.css';
 
@@ -6,7 +6,23 @@ import './App.css';
 import SignupForm from './components/SignupForm'
 import LoginForm from './components/LoginForm'
 
+
 function App() {
+
+  // Entire app state
+  const [newUser, setNewUser] = useState({
+    email: '',
+    password:''
+  })
+
+  const [signupValues, setSignupValues] = useState({
+    email: '',
+    password:''
+  })
+
+  
+
+
   return (
     <div className="App">
       <Link to='/login'>Login</Link>
@@ -17,7 +33,11 @@ function App() {
         <LoginForm />
         </Route>
         <Route path='/signup'>
-          <SignupForm />
+          <SignupForm
+            newUser={newUser}
+            setNewUser={setNewUser} 
+            signupValues={signupValues}
+            setSignupValues={setSignupValues}/>
         </Route>
       </Switch>
 
