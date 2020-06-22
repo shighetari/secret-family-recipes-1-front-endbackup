@@ -2,7 +2,7 @@ import React from 'react'
 
 function SignupForm (props){
 
-    const { newUser, setNewUser, signupValues, setSignupValues } = props
+    const { newUser, setNewUser, formValues, setFormValues } = props
 
 
 
@@ -11,9 +11,9 @@ function SignupForm (props){
     function submitHandler(e){
         e.preventDefault()
         console.log('New user created');
-        setNewUser(signupValues);
+        setNewUser(formValues);
         
-        setSignupValues({
+        setFormValues({
             email: '',
             password:''
           })
@@ -22,8 +22,8 @@ function SignupForm (props){
     function changeHandler(e){
         const {name, value } = e.target;
 
-        setSignupValues({
-            ...signupValues,
+        setFormValues({
+            ...formValues,
             [name]: value
         })
 
@@ -40,7 +40,7 @@ function SignupForm (props){
                     name='email'
                     placeholder='Your email'
                     onChange={changeHandler}
-                    value={signupValues.email}
+                    value={formValues.email}
                     >
                     </input>
                 </label>
@@ -50,7 +50,7 @@ function SignupForm (props){
                     name='password'
                     placeholder='Your password'
                     onChange={changeHandler}
-                    value={signupValues.password}
+                    value={formValues.password}
                     >
                     </input>
                 </label>

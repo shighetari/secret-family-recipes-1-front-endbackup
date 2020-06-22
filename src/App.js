@@ -15,7 +15,7 @@ function App() {
     password:''
   })
 
-  const [signupValues, setSignupValues] = useState({
+  const [formValues, setFormValues] = useState({
     email: '',
     password:''
   })
@@ -30,14 +30,16 @@ function App() {
 
       <Switch>
         <Route path='/login'>
-        <LoginForm />
+        <LoginForm 
+          formValues={formValues}
+          setFormValues={setFormValues}/>
         </Route>
         <Route path='/signup'>
           <SignupForm
             newUser={newUser}
             setNewUser={setNewUser} 
-            signupValues={signupValues}
-            setSignupValues={setSignupValues}/>
+            formValues={formValues}
+            setFormValues={setFormValues}/>
         </Route>
       </Switch>
 
