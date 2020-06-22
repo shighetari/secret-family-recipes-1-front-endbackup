@@ -1,5 +1,5 @@
 import React from "react";
-import { useHistory } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import * as Yup from "yup";
 
 //importing signup form schema
@@ -89,6 +89,7 @@ function SignupForm(props) {
           Create Account
         </button>
       </form>
+      <Link to='/login'>Already have an account? Log In</Link>
     </div>
   );
 }

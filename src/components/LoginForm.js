@@ -1,5 +1,5 @@
 import React from 'react'
-import { useHistory } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 
 function LoginForm (props){
 
@@ -51,6 +51,7 @@ return(
                 </label>
                 <button type='submit'>Log In</button>
             </form>
+            <Link to='/signup'>Don´t have an account yet? Register here</Link>
         </div>
     )
 }
