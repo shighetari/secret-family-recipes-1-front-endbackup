@@ -1,14 +1,26 @@
 import React from 'react';
-import logo from './logo.svg';
+import { Switch, Route, Link } from 'react-router-dom'
 import './App.css';
+
+// importing components
+import SignupForm from './components/SignupForm'
+import LoginForm from './components/LoginForm'
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        Front end Build Week Application deployed: Secret Family Recipes-1
-      </header>
+      <Link to='/login'>Login</Link>
+      <Link to='/signup'>Signup</Link>
+
+      <Switch>
+        <Route path='/login'>
+        <LoginForm />
+        </Route>
+        <Route path='/signup'>
+          <SignupForm />
+        </Route>
+      </Switch>
+
     </div>
   );
 }
