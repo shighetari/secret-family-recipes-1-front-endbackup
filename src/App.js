@@ -1,14 +1,72 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {useState, useEffect} from 'react';
+import { Switch, Route, Link } from 'react-router-dom'
+import * as Yup from "yup";
 import './App.css';
 
+// importing components
+import SignupForm from './components/SignupForm'
+import LoginForm from './components/LoginForm'
+
+//importing signup form schema
+import signupSchema from './components/signupSchema';
+
 function App() {
+
+  // Entire app state
+  const [newUser, setNewUser] = useState({
+    email: '',
+    password:''
+  })
+
+  const [formValues, setFormValues] = useState({
+    email: '',
+    password:''
+  })
+
+  const [errors, setErrors] = useState({
+    email: "",
+    password: ""
+  });
+
+  const [buttonDisabled, setButtonDisabled] = useState(true)
+
+
+  //sigup button validation
+  useEffect(() => {
+    signupSchema.isValid(formValues).then(valid => {
+      setButtonDisabled(!valid);
+    });
+  }, [formValues]);
+  
+
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        Front end Build Week Application deployed: Secret Family Recipes-1
-      </header>
+      <Link to='/login'>Login</Link>
+      <Link to='/signup'>Signup</Link>
+
+      <Switch>
+        <Route path='/home'>
+        <div>
+          <h1>{newUser.email} Family Recepies</h1>
+        </div>
+        </Route>
+        <Route path='/login'>
+        <LoginForm 
+          formValues={formValues}
+          setFormValues={setFormValues}/>
+        </Route>
+        <Route path='/signup'>
+          <SignupForm
+            setNewUser={setNewUser} 
+            formValues={formValues}
+            setFormValues={setFormValues}
+            buttonDisabled={buttonDisabled}
+            errors={errors}
+            setErrors={setErrors}/>
+        </Route>
+      </Switch>
+
     </div>
   );
 }
