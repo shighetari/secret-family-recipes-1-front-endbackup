@@ -1,6 +1,7 @@
 import React from "react";
 import { Link, useHistory } from 'react-router-dom'
 import * as Yup from "yup";
+import '../App.css'
 
 //importing signup form schema
 import signupSchema from './signupSchema';
@@ -35,17 +36,13 @@ function SignupForm(props) {
 
     Yup
     .reach(signupSchema, name)
-    //we can then run validate using the value
     .validate(value)
-    // if the validation is successful, we can clear the error message
     .then(valid => {
       setErrors({
         ...errors,
         [name]: ""
       });
     })
-    /* if the validation is unsuccessful, we can set the error message to the message 
-      returned from yup (that we created in our schema) */
     .catch(err => {
       setErrors({
         ...errors,
@@ -60,32 +57,37 @@ function SignupForm(props) {
   }
 
   return (
-    <div>
-      <h1>This is the Signup Form</h1>
-      <form onSubmit={submitHandler}>
-        <label>
-          Email:
+    <div className='form-container'>
+      <h1>Please create an account so we can save your secret recepies</h1>
+      <form
+      className='form' 
+      onSubmit={submitHandler}>
+        <label className='form-label'>
+          What´s your email address
           <input
+            className='form-input'
             type="email"
             name="email"
-            placeholder="Your email"
             onChange={changeHandler}
             value={formValues.email}
           ></input>
           {errors.email? (<p className="error">{errors.email}</p>) : null}
         </label>
-        <label>
-          Password:
+        <label className='form-label'>
+          Set your Password
           <input
+            className='form-input'
             type="password"
             name="password"
-            placeholder="Your password"
             onChange={changeHandler}
             value={formValues.password}
           ></input>
           {errors.password ? (<p className="error">{errors.password}</p>) : null}
         </label>
-        <button type="submit" disabled={buttonDisabled}>
+        <button 
+          className='form-btn'
+         type="submit" 
+         disabled={buttonDisabled}>
           Create Account
         </button>
       </form>

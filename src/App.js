@@ -42,9 +42,7 @@ function App() {
 
   return (
     <div className="App">
-      <Link to='/login'>Login</Link>
-      <Link to='/signup'>Signup</Link>
-
+     
       <Switch>
         <Route path='/home'>
         <div>
