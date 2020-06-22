@@ -18,7 +18,7 @@ const rootReducer = (state = initialState, action) => {
         case ADD_RECIPE:
             return {
                 ...state,
-                // recipes: action.payload
+                recipes: action.payload
             }
         case REMOVE_RECIPE:
             return {
