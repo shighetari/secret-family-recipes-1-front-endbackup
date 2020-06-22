@@ -1,4 +1,5 @@
 import React from 'react'
+import { useHistory } from 'react-router-dom'
 
 function LoginForm (props){
 
@@ -6,9 +7,11 @@ function LoginForm (props){
 
         // Form Handlers
 
+        let history = useHistory()
         function submitHandler(e){
             e.preventDefault()
             console.log('Logged In');
+            history.push('/home')
             
         }
     
