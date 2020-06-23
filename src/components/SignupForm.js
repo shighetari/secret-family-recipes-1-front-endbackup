@@ -105,7 +105,7 @@ function SignupForm() {
         </label>
 
         <label className='form-label'>
-          Set your Password
+          Set your password
           <input
             className='form-input'
             type="password"

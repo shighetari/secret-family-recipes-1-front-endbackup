@@ -43,8 +43,6 @@ const submitHandler = e => {
 
 }
 
-
-
   function changeHandler(e) {
     const { name, value } = e.target;
 
@@ -59,25 +57,23 @@ const submitHandler = e => {
       <h1>Log in to access your secret recepies</h1>
       <form className="form" onSubmit={submitHandler}>
         <label className="form-label">
-          {" "}
           Type in your username
           <input
             className="form-input"
             type="username"
             name="username"
             onChange={changeHandler} 
-            value={formValues.username} //change values from local state
+            value={formValues.username} 
           ></input>
         </label>
         <label className="form-label">
-          {" "}
           And your password
           <input
             className="form-input"
             type="password"
             name="password"
             onChange={changeHandler}
-            value={formValues.password} //change values from local state
+            value={formValues.password} 
           ></input>
         </label>
         {errors.message ? (<p className="error">{errors.message}</p>) : null}
