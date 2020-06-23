@@ -1,25 +1,56 @@
-import React from "react";
+import React, { useState, useEffect } from "react"; //added use state for form state managment for R1 -fb
 import { Link, useHistory } from "react-router-dom";
 import "../App.scss";
+import { axiosWithAuth } from "../utils/axiosWithAuth";
 
-function LoginForm(props) {
-  const { newUser, setNewUser, formValues, setFormValues } = props;
+//Scehma for login page to meet same reqs as required for signup?
+//form state managment
+const initialState = {
+  username: '',
+  password:''
+}
+function LoginForm() { 
 
-  // Form Handlers
+  const history = useHistory()
+  const [formValues, setFormValues] = useState(initialState) 
+  const [errors, setErrors] = useState(initialState);
 
-  let history = useHistory();
-  function submitHandler(e) {
-    e.preventDefault();
-    console.log("Logged In");
-    history.push("/home");
-  }
+
+// resets errors whenever user types
+useEffect(()=>{
+  setErrors(initialState)
+},[formValues])  
+ 
+const submitHandler = e => {
+  e.preventDefault()
+  axiosWithAuth().post(`/api/auth/login`, formValues)
+  .then((res) => {
+    console.log(res)
+    window.localStorage.setItem("token" , res.data.token)
+    history.push("/home")
+  })
+  .catch((err) => {
+    console.log(err)
+    setErrors({
+      ...errors,
+      message: "The Username or Password you entered does not exist. Please try again"
+    });
+    debugger
+  })
+  .finally(()=> {
+
+  })
+
+}
+
+
 
   function changeHandler(e) {
     const { name, value } = e.target;
 
     setFormValues({
-      ...formValues,
-      [name]: value,
+     ...formValues,
+     [name]:value
     });
   }
 
@@ -29,13 +60,13 @@ function LoginForm(props) {
       <form className="form" onSubmit={submitHandler}>
         <label className="form-label">
           {" "}
-          Type in your email address
+          Type in your username
           <input
             className="form-input"
-            type="email"
-            name="email"
-            onChange={changeHandler}
-            value={formValues.email}
+            type="username"
+            name="username"
+            onChange={changeHandler} 
+            value={formValues.username} //change values from local state
           ></input>
         </label>
         <label className="form-label">
@@ -46,9 +77,10 @@ function LoginForm(props) {
             type="password"
             name="password"
             onChange={changeHandler}
-            value={formValues.password}
+            value={formValues.password} //change values from local state
           ></input>
         </label>
+        {errors.message ? (<p className="error">{errors.message}</p>) : null}
         <button className="form-btn" type="submit">
           Log In
         </button>
