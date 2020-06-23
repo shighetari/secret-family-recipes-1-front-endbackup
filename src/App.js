@@ -8,7 +8,7 @@ import './App.css';
 // importing components
 import SignupForm from './components/SignupForm'
 import LoginForm from './components/LoginForm'
-
+// import Loader from "react-loader-spinner"; // saving this for the login for isLoading animation
 //importing signup form schema
 import signupSchema from './components/signupSchema';
 
