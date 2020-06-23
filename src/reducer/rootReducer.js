@@ -11,7 +11,8 @@ import {
 //InitialState for global State
 const initialState = {
     recipes: [],
-    error: ''
+    error: '',
+    users: {}
 }
 
 const rootReducer = (state = initialState, action) => {
