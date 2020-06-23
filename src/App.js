@@ -3,8 +3,8 @@ import { Switch, Route, Link } from 'react-router-dom'
 import * as Yup from "yup";
 import './App.css';
 //components
-import AddRecipeForm from './components/AddRecipeForm';
-import EditRecipe from './components/EditRecipe'
+// import AddRecipeForm from './components/AddRecipeForm';
+// import EditRecipe from './components/EditRecipe'
 // importing components
 import SignupForm from './components/SignupForm'
 import LoginForm from './components/LoginForm'
@@ -49,6 +49,8 @@ function App() {
     <div className="App">
       <Link to='/login'>Login</Link>
       <Link to='/signup'>Signup</Link>
+      {/* <EditRecipe />
+      <AddRecipeForm /> */}
       <Switch>
         <Route path='/home'>
           <div>

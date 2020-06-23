@@ -41,11 +41,11 @@ axiosWithAuth()
 .get('/tbd')
 .then((res) => {
     console.log(res) // waiting to see what the data looks like
-    dispatch({ type: GET_RECIPE, payload: res.data})
+    // dispatch({ type: GET_RECIPE, payload: res.data})
 })
 .catch((err) => {
     console.log(err)
-    dispatch({type: AXIOS_ERROR, payload: err.data})
+    // dispatch({type: AXIOS_ERROR, payload: err.message})
 })
 }
 

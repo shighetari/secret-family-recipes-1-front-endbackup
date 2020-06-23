@@ -9,17 +9,15 @@ const RecipeList = (props, {getRecipe}) => {
 
         useEffect(() => {
             //dispatch action from redux here
-            getRecipe()
+            console.log(props.recipes) // redux state
+            // getRecipe() // will remove when end points are given
         },[])
 
     return (
         <>
         
         {/* inserted map here that will also return the Recipe component */}
-        {props.recipes.map((recipe) => {
-            return <Recipe key={recipe.id} recipe={recipe} />
-        })}
-        
+         {/* we'll do this together in a zoom call tuesday */}
         </>
     )
 
