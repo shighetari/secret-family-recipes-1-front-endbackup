@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, useHistory } from "react-router-dom";
-import "../App.css";
+import "../App.scss";
 
 function LoginForm(props) {
   const { newUser, setNewUser, formValues, setFormValues } = props;
