@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useHistory } from 'react-router-dom'
 import * as Yup from "yup";
 import '../App.css'
@@ -7,14 +7,31 @@ import '../App.css'
 import signupSchema from './signupSchema';
 
 function SignupForm(props) {
+
+  const [newUser, setNewUser] = useState({
+    email: '',
+    password:''
+  })
+
+  const [errors, setErrors] = useState({
+    email: "",
+    password: ""
+  });
+
+  const [buttonDisabled, setButtonDisabled] = useState(true)
+
   const {
-    setNewUser,
     formValues,
     setFormValues,
-    buttonDisabled,
-    errors,
-    setErrors
   } = props;
+
+
+   //sigup button validation
+   useEffect(() => {
+    signupSchema.isValid(formValues).then(valid => {
+      setButtonDisabled(!valid);
+    });
+  }, [formValues]);
 
   // Form Handlers
   const history = useHistory()

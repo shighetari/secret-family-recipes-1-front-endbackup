@@ -12,31 +12,13 @@ import signupSchema from './components/signupSchema';
 
 function App() {
 
-  // Entire app state
-  const [newUser, setNewUser] = useState({
-    email: '',
-    password:''
-  })
-
+  
+  // form values from login and signup
   const [formValues, setFormValues] = useState({
     email: '',
     password:''
   })
 
-  const [errors, setErrors] = useState({
-    email: "",
-    password: ""
-  });
-
-  const [buttonDisabled, setButtonDisabled] = useState(true)
-
-
-  //sigup button validation
-  useEffect(() => {
-    signupSchema.isValid(formValues).then(valid => {
-      setButtonDisabled(!valid);
-    });
-  }, [formValues]);
   
 
 
@@ -45,9 +27,7 @@ function App() {
      
       <Switch>
         <Route path='/home'>
-        <div>
-          <h1>{newUser.email} Family Recepies</h1>
-        </div>
+        
         </Route>
         <Route path='/login'>
         <LoginForm 
@@ -56,12 +36,9 @@ function App() {
         </Route>
         <Route path='/signup'>
           <SignupForm
-            setNewUser={setNewUser} 
             formValues={formValues}
             setFormValues={setFormValues}
-            buttonDisabled={buttonDisabled}
-            errors={errors}
-            setErrors={setErrors}/>
+            />
         </Route>
       </Switch>
 
