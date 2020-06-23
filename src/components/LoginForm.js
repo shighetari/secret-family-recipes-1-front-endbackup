@@ -1,17 +1,17 @@
 import React, { useState } from "react"; //added use state for form state managment for R1 -fb
 import { Link, useHistory } from "react-router-dom";
 import "../App.css";
+import { axiosWithAuth } from "../utils/axiosWithAuth";
 
 //Scehma for login page to meet same reqs as required for signup?
 //form state managment
 const initialState = {
   username: '',
-  password:'',
-  email: ''
+  password:''
 }
-function LoginForm() { //removed the props
-  // const { newUser, setNewUser, formValues, setFormValues } = props;
-  const [formValues, setFormValues] = useState(initialState) //form state managment
+function LoginForm() { 
+  const history = useHistory()
+  const [formValues, setFormValues] = useState(initialState) 
 
   // Form Handlers
 
@@ -25,7 +25,19 @@ function LoginForm() { //removed the props
 //FB WORK START:
 const submitHandler = e => {
   e.preventDefault()
-  
+  axiosWithAuth().post(`/api/auth/login`, formValues)
+  .then((res) => {
+    console.log(res)
+    window.localStorage.setItem("token" , res.data.token)
+    history.push("/home")
+  })
+  .catch((err) => {
+    console.log(err)
+    debugger
+  })
+  .finally(()=> {
+
+  })
 
 }
 //FB WORK END\\
@@ -46,13 +58,13 @@ const submitHandler = e => {
       <form className="form" onSubmit={submitHandler}>
         <label className="form-label">
           {" "}
-          Type in your email address
+          Type in your username
           <input
             className="form-input"
-            type="email"
-            name="email"
+            type="username"
+            name="username"
             onChange={changeHandler} 
-            value={formValues.email} //change values from local state
+            value={formValues.username} //change values from local state
           ></input>
         </label>
         <label className="form-label">

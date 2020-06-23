@@ -12,24 +12,26 @@ import Home from "./components/Home"
 
 function App() {
 
-  
-  // form values from login and signup
-  // const [formValues, setFormValues] = useState({
-  //   email: '',
-  //   password:''
-  // })
+  const logout = () => {
+    const token = window.localStorage.getItem("token")
 
-  
+    if (token) {
+      window.localStorage.removeItem("token")
+    } else {
+      alert('you are not logged in anymore')
+    }
+  }
 
 
   return (
     <div className="App">
-     
+     <Link to= "/" onClick = {logout} >
+       Logout</Link>
       <Switch>
         <Route path='/home'>
         <Home />
         </Route>
-        <Route path='/login'>
+        <Route path='/login' >
         <LoginForm 
           // formValues={formValues} //moving these values into the actual component in stead of prop drilling
           // setFormValues={setFormValues}
