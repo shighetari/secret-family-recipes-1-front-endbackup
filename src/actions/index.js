@@ -9,11 +9,36 @@ export const UPDATE_RECIPE = "UPDATE_RECIPE"
 //tbd downbellow 
 export const FAVORITE_RECIPE = "FAVORITE_RECIPE"
 export const AXIOS_ERROR = "AXIOS_ERROR" // testing
+export const POSTNEW_USER = "POSTNEW_USER" // sign up
+export const LOGIN_USER = "LOGIN_USER" //login
 
+
+//***********Start of user actions ***********
 export const getUser = () => dispatch => {
+   //not .get set up yet 
 
 }
 
+export const loginUser = () => dispatch => {
+    //set loading to true when action is fired  before axios call fires
+
+    // axiosWithAuth()
+    // .post(`/api/auth/login`, user)
+}
+
+//sign up (axios.post)
+export const postUser = (newUser) => dispatch => {
+    axiosWithAuth()
+    .post('api/auth/register', newUser)
+    .then((res) => {
+        console.log(res)
+    })
+    .catch((err) => {
+        console.log(err)
+    })
+}
+
+//***********End of user actions ***********
 
 //.post (Create) add
 export const addRecipe = (newRecipe) => dispatch => { //Will pass correct state information once forms are complete

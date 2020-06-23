@@ -6,18 +6,18 @@ import './App.css';
 // importing components
 import SignupForm from './components/SignupForm'
 import LoginForm from './components/LoginForm'
+import Home from "./components/Home"
+// import Loader from "react-loader-spinner"; // saving this for the login for isLoading animation
 
-//importing signup form schema
-import signupSchema from './components/signupSchema';
 
 function App() {
 
   
   // form values from login and signup
-  const [formValues, setFormValues] = useState({
-    email: '',
-    password:''
-  })
+  // const [formValues, setFormValues] = useState({
+  //   email: '',
+  //   password:''
+  // })
 
   
 
@@ -27,17 +27,18 @@ function App() {
      
       <Switch>
         <Route path='/home'>
-        
+        <Home />
         </Route>
         <Route path='/login'>
         <LoginForm 
-          formValues={formValues}
-          setFormValues={setFormValues}/>
+          // formValues={formValues} //moving these values into the actual component in stead of prop drilling
+          // setFormValues={setFormValues}
+          />
         </Route>
         <Route path='/signup'>
           <SignupForm
-            formValues={formValues}
-            setFormValues={setFormValues}
+            // formValues={formValues}
+            // setFormValues={setFormValues}
             />
         </Route>
       </Switch>

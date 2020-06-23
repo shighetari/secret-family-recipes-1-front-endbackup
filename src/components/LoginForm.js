@@ -1,25 +1,42 @@
-import React from "react";
+import React, { useState } from "react"; //added use state for form state managment for R1 -fb
 import { Link, useHistory } from "react-router-dom";
 import "../App.css";
 
-function LoginForm(props) {
-  const { newUser, setNewUser, formValues, setFormValues } = props;
+//Scehma for login page to meet same reqs as required for signup?
+//form state managment
+const initialState = {
+  username: '',
+  password:'',
+  email: ''
+}
+function LoginForm() { //removed the props
+  // const { newUser, setNewUser, formValues, setFormValues } = props;
+  const [formValues, setFormValues] = useState(initialState) //form state managment
 
   // Form Handlers
 
-  let history = useHistory();
-  function submitHandler(e) {
-    e.preventDefault();
-    console.log("Logged In");
-    history.push("/home");
-  }
+  // I will end up moving your usehistory hook into the axioswithauth .then path but for now, good job!
+  // let history = useHistory();
+  // function submitHandler(e) {
+  //   e.preventDefault();
+  //   console.log("Logged In");
+  //   history.push("/home");
+  // }
+//FB WORK START:
+const submitHandler = e => {
+  e.preventDefault()
+  
+
+}
+//FB WORK END\\
+
 
   function changeHandler(e) {
     const { name, value } = e.target;
 
     setFormValues({
-      ...formValues,
-      [name]: value,
+     ...formValues,
+     [name]:value
     });
   }
 
@@ -34,8 +51,8 @@ function LoginForm(props) {
             className="form-input"
             type="email"
             name="email"
-            onChange={changeHandler}
-            value={formValues.email}
+            onChange={changeHandler} 
+            value={formValues.email} //change values from local state
           ></input>
         </label>
         <label className="form-label">
@@ -46,7 +63,7 @@ function LoginForm(props) {
             type="password"
             name="password"
             onChange={changeHandler}
-            value={formValues.password}
+            value={formValues.password} //change values from local state
           ></input>
         </label>
         <button className="form-btn" type="submit">
