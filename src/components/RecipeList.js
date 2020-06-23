@@ -4,7 +4,8 @@ import { connect } from "react-redux"
 //axios
 import { getRecipe } from "../actions"
 import Recipe from './Recipe'
-
+//props = state from mapstatetoprops 
+//{getRecipe} is an action from redux (actions.js) for the reducer
 const RecipeList = (props, {getRecipe}) => {
 
         useEffect(() => {
@@ -18,6 +19,9 @@ const RecipeList = (props, {getRecipe}) => {
         
         {/* inserted map here that will also return the Recipe component */}
          {/* we'll do this together in a zoom call tuesday */}
+         {props.recipes.map((recipe) => {
+             return <Recipe key={recipe.id} recipe={recipe} />
+         })}
         </>
     )
 

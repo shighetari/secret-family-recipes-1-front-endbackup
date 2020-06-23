@@ -11,6 +11,7 @@ import { useLocalStorage } from "../utils/useLocalStorage"; // added local stora
 import signupSchema from './signupSchema';
 
 
+
 //added init state for form state
 const initialState = {
   username: '',
@@ -63,17 +64,20 @@ function SignupForm(/*props*/) { // we shouldn't need props unless passing in re
     }
   */
   //************Start of FB additions************\\
-
+  const history = useHistory()
   const postNewUsername = (newUsername) => {
+
     axiosWithAuth().post('/api/auth/register', newUsername)
       .then((res => {
         console.log(res)
         setFormState(initialState)
+        history.push("/login")
       }))
       .catch((err) => {
         console.log(err)
         debugger
       })
+
   }
 
   //onSubmit
@@ -88,13 +92,13 @@ function SignupForm(/*props*/) { // we shouldn't need props unless passing in re
   }
 
   //made a basic changehandler to test sign up
-  function changeHandler (e) {
+  function changeHandler(e) {
     const name = e.target.name
     const value = e.target.value
-    
+
     setFormState({
       ...formState,
-      [name]:value
+      [name]: value
     })
 
   }
