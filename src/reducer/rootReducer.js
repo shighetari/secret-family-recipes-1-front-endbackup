@@ -1,10 +1,11 @@
 //importing my actions, types folder sounds really appealing all of a sudden
 import {
-    SET_ERROR,
+    LOGIN_ERROR,
     ADD_RECIPE,
     REMOVE_RECIPE,
     GET_RECIPE,
-    FAVORITE_RECIPE
+    FAVORITE_RECIPE,
+    AXIOS_ERROR
 } from "../actions/index"
 
 //InitialState for global State
@@ -28,13 +29,18 @@ const rootReducer = (state = initialState, action) => {
         case GET_RECIPE:
             return {
                 ...state,
-                // recipes: action.payload
+                recipes: action.payload
             }
         case FAVORITE_RECIPE:
             return {
 
             }
-        case SET_ERROR:
+        case AXIOS_ERROR: 
+            return {
+            ...state,
+            error:''
+        }
+        case LOGIN_ERROR:
             return {
                 ...state,
                 // error: action.payload

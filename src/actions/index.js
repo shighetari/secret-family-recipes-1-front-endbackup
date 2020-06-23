@@ -8,7 +8,7 @@ export const GET_RECIPE = "GET_RECIPE"
 export const UPDATE_RECIPE = "UPDATE_RECIPE"
 //tbd downbellow 
 export const FAVORITE_RECIPE = "FAVORITE_RECIPE"
-
+export const AXIOS_ERROR = "AXIOS_ERROR" // testing
 
 export const getUser = () => dispatch => {
 
@@ -16,9 +16,9 @@ export const getUser = () => dispatch => {
 
 
 //.post (Create) add
-export const addRecipe = (props) => dispatch => { //Will pass correct state information once forms are complete
+export const addRecipe = (newRecipe) => dispatch => { //Will pass correct state information once forms are complete
     axiosWithAuth()
-    .post('/TBDWhenIseeData', props.recipes)
+    .post('/TBDWhenIseeData', newRecipe)
     .then((res) => {
         console.log(res)
     })
@@ -28,18 +28,30 @@ export const addRecipe = (props) => dispatch => { //Will pass correct state info
     // .finally(null)
 }
 
+
 //.delete (Delete)
 export const removeRecipe = () => dispatch => {
     
 }
 
+
 //.get (Read) 
 export const getRecipe = () => dispatch => {
-
+axiosWithAuth()
+.get('/tbd')
+.then((res) => {
+    console.log(res) // waiting to see what the data looks like
+    dispatch({ type: GET_RECIPE, payload: res.data})
+})
+.catch((err) => {
+    console.log(err)
+    dispatch({type: AXIOS_ERROR, payload: err.data})
+})
 }
 
+
 //.put (Update) takes and ID and {object} to update
-export const updateRecipe = () => dispatch => {
+export const editRecipe = () => dispatch => {
 
 }
 
