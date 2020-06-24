@@ -7,9 +7,8 @@ import { loginUser } from "../actions/index"
 import '../App.scss'
 
 
-const Navbar = ({users}) => {
+const Navbar = ({users, setShowModal}) => {
 const [isloggedin, setIsLoggedin] = useState(false)
-
 useEffect(() => {
     if (localStorage.getItem("token")){
         setIsLoggedin(true)
@@ -22,8 +21,11 @@ useEffect(() => {
     
         if (token) {
           window.localStorage.removeItem("token")
+          setShowModal(true)
           setIsLoggedin(false)
-          alert('You have been logged out')
+          setTimeout(()=>{
+            setShowModal(false)
+          },2000)
         } 
         
       }

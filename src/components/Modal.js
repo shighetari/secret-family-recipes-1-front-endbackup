@@ -19,9 +19,10 @@ const modal ={
     }
 }
 
-function SuccessModal(props){
+function Modal(props){
 
-    const {showModal, setShowModal} = props;
+
+    const {showModal, setShowModal, title} = props;
 
     return(
         <AnimatePresence exitBeforeEnter onExitComplete={()=> setShowModal(false)}>
@@ -37,7 +38,7 @@ function SuccessModal(props){
                 className='modal'
                 variants={modal}
                 >
-                    <p>You have successfully created an acount</p>
+                    <p>{title}</p>
                 </motion.div>
             </motion.div>
         )}
@@ -46,4 +47,4 @@ function SuccessModal(props){
 }
 
 
-export default SuccessModal
+export default Modal

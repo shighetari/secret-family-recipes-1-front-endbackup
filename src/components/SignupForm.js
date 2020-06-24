@@ -11,7 +11,7 @@ import { useLocalStorage } from "../utils/useLocalStorage"; // added local stora
 //importing signup form schema
 import formSchema from './formSchema';
 // importing modal
-import SignupModal from './signupModal'
+import Modal from './Modal'
 
 //added init state for form state
 const initialState = {
@@ -94,7 +94,7 @@ function SignupForm() {
 
   return (
     <>
-    <SignupModal showModal={showModal} setShowModal={setShowModal}/>
+    <Modal showModal={showModal} setShowModal={setShowModal} title='You have successfully created an acount'/>
     <div className='form-container'>
       <h1>Please create an account so we can save your secret recepies</h1>
       <form

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Route, Link, Switch } from "react-router-dom";
 import './App.scss';
 // importing components
@@ -7,22 +7,20 @@ import LoginForm from './components/LoginForm'
 import UserDashboard from "./components/UserDashboard"
 import PrivateRoute from './components/PrivateRoute'
 import Navbar from './components/Navbar'
+import Modal from './components/Modal'
 // import Loader from "react-loader-spinner"; // saving this for the login for isLoading animation
-
 
 function App() {
 
-
+  const [showModal, setShowModal] = useState(false);
   /*****************************************************************\
                         squeeky clean
   \*****************************************************************/
 
   return (
     <div>
-
-      {/* will use navbar to avoid these links */}
-
-      <Navbar />
+      <Modal showModal={showModal} setShowModal={setShowModal} title='You have been logged out'/>
+      <Navbar setShowModal={setShowModal} />
       <Switch>
         <Route exact path='/' >
           <LoginForm />
