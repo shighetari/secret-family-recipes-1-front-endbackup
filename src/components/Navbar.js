@@ -4,11 +4,13 @@ import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { loginUser } from "../actions/index"
 
+import Modal from './Modal'
 import '../App.scss'
 
 
-const Navbar = ({users, setShowModal}) => {
+const Navbar = ({users}) => {
 const [isloggedin, setIsLoggedin] = useState(false)
+const [showModal, setShowModal] = useState(false);
 useEffect(() => {
     if (localStorage.getItem("token")){
         setIsLoggedin(true)
@@ -31,7 +33,8 @@ useEffect(() => {
       }
 
     return (
-
+        <>
+        <Modal showModal={showModal} setShowModal={setShowModal} title='You have been logged out'/>
         <nav className='navbar'>
             <h1> Secret Family Recipes </h1>
             { isloggedin &&  <h2> Welcome back, {users.username}</h2>}
@@ -43,6 +46,7 @@ useEffect(() => {
                 <Link to="/userdashboard"> UserDashboard</Link>
             </div>
         </nav>
+        </>
     )
 }
 
