@@ -1,48 +1,40 @@
-import React, {useState, useEffect} from 'react';
-import { Switch, Route, Link } from 'react-router-dom'
-import * as Yup from "yup";
+import React from 'react';
+import { Route, Link, Switch } from "react-router-dom";
 import './App.scss';
-
 // importing components
 import SignupForm from './components/SignupForm'
 import LoginForm from './components/LoginForm'
-import Home from "./components/Home"
+import UserDashboard from "./components/UserDashboard"
+import PrivateRoute from './components/PrivateRoute'
+import Navbar from './components/Navbar'
 // import Loader from "react-loader-spinner"; // saving this for the login for isLoading animation
 
 
 function App() {
 
-  const logout = () => {
-    const token = window.localStorage.getItem("token")
 
-    if (token) {
-      window.localStorage.removeItem("token")
-    } else {
-      alert('you are not logged in anymore')
-    }
-  }
-
+  /*****************************************************************\
+                        squeeky clean
+  \*****************************************************************/
 
   return (
-    <div className="App">
-     <Link to= "/" onClick = {logout} >
-       Logout</Link>
+    <div>
+
+      {/* will use navbar to avoid these links */}
+
+      <Navbar />
       <Switch>
-        <Route path='/home'>
-        <Home />
+        <Route exact path='/' >
+          <LoginForm />
         </Route>
-        <Route path='/login' >
-        <LoginForm 
-          // formValues={formValues} //moving these values into the actual component in stead of prop drilling
-          // setFormValues={setFormValues}
-          />
-        </Route>
+
         <Route path='/signup'>
-          <SignupForm
-            // formValues={formValues}
-            // setFormValues={setFormValues}
-            />
+          <SignupForm />
         </Route>
+
+
+        {/* start of private routes */}
+        <PrivateRoute path='/userdashboard/' component={UserDashboard} />
       </Switch>
 
     </div>

@@ -1,54 +1,58 @@
 import React, { useState, useEffect } from "react"; //added use state for form state managment for R1 -fb
 import { Link, useHistory } from "react-router-dom";
 import "../App.scss";
-import { axiosWithAuth } from "../utils/axiosWithAuth";
+// import { axiosWithAuth } from "../utils/axiosWithAuth";
+import { connect } from "react-redux";
+import { loginUser } from "../actions";
+
 
 //Scehma for login page to meet same reqs as required for signup?
 //form state managment
 const initialState = {
   username: '',
-  password:''
+  password: ''
 }
-function LoginForm() { 
+function LoginForm({loginUser}) {
 
   const history = useHistory()
-  const [formValues, setFormValues] = useState(initialState) 
+  const [formValues, setFormValues] = useState(initialState)
   const [errors, setErrors] = useState(initialState);
 
 
-// resets errors whenever user types
-useEffect(()=>{
-  setErrors(initialState)
-},[formValues])  
- 
-const submitHandler = e => {
-  e.preventDefault()
-  axiosWithAuth().post(`/api/auth/login`, formValues)
-  .then((res) => {
-    console.log(res)
-    window.localStorage.setItem("token" , res.data.token)
-    history.push("/home")
-  })
-  .catch((err) => {
-    console.log(err)
-    setErrors({
-      ...errors,
-      message: "The Username or Password you entered does not exist. Please try again"
-    });
-    debugger
-  })
-  .finally(()=> {
+  // resets errors whenever user types
+  useEffect(() => {
+    setErrors(initialState)
+  }, [formValues])
 
-  })
+  const submitHandler = e => {
+    e.preventDefault()
+    loginUser(formValues, history, setErrors, errors)
+    // axiosWithAuth().post(`/api/auth/login`, formValues)
+    //   .then((res) => {
+    //     console.log(res)
+    //     window.localStorage.setItem("token", res.data.token)
+    //     history.push("/userdashboard")
+    //   })
+    //   .catch((err) => {
+    //     console.log(err)
+    //     setErrors({
+    //       ...errors,
+    //       message: "The Username or Password you entered does not exist. Please try again"
+    //     });
+    //     debugger
+    //   })
+    //   .finally(() => {
 
-}
+    //   })
+
+  }
 
   function changeHandler(e) {
     const { name, value } = e.target;
 
     setFormValues({
-     ...formValues,
-     [name]:value
+      ...formValues,
+      [name]: value
     });
   }
 
@@ -62,8 +66,8 @@ const submitHandler = e => {
             className="form-input"
             type="username"
             name="username"
-            onChange={changeHandler} 
-            value={formValues.username} 
+            onChange={changeHandler}
+            value={formValues.username}
           ></input>
         </label>
         <label className="form-label">
@@ -73,7 +77,7 @@ const submitHandler = e => {
             type="password"
             name="password"
             onChange={changeHandler}
-            value={formValues.password} 
+            value={formValues.password}
           ></input>
         </label>
         {errors.message ? (<p className="error">{errors.message}</p>) : null}
@@ -86,4 +90,10 @@ const submitHandler = e => {
   );
 }
 
-export default LoginForm;
+const MapStateToProps = state => {
+  return {
+
+  }
+}
+
+export default connect(MapStateToProps, {loginUser})(LoginForm)

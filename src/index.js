@@ -6,20 +6,21 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 
 //setting up redux
-import { createStore } from 'redux';
-import {Provider} from "react-redux"
+import { createStore, applyMiddleware } from 'redux';
+import { Provider } from "react-redux"
 import rootReducer from './reducer/rootReducer';
+import thunk from 'redux-thunk';
 
 
 //setting up store
-const store = createStore(rootReducer) //setting up just a base state for now
+const store = createStore(rootReducer, applyMiddleware(thunk)) //setting up just a base state for now
 
 ReactDOM.render(
   <React.StrictMode>
-    <Provider store ={store}> 
-    <Router>
-      <App />
-    </Router>
+    <Provider store={store}>
+      <Router>
+        <App />
+      </Router>
     </Provider>
   </React.StrictMode>,
   document.getElementById('root')

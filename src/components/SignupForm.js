@@ -20,7 +20,7 @@ const initialState = {
 
 function SignupForm() {
 
-  const [formValues, setFormValues] = useState(initialState)
+  // const [formValues, setFormValues] = useState(initialState)
   const [formState, setFormState] = useLocalStorage(`formValues`, initialState)
   const [errors, setErrors] = useState(initialState);
   const [buttonDisabled, setButtonDisabled] = useState(true)
@@ -122,7 +122,7 @@ function SignupForm() {
           Create Account
         </button>
       </form>
-      <Link to='/login'>Already have an account? Log In</Link>
+      <Link to='/'>Already have an account? Log In</Link>
     </div>
   );
 }
