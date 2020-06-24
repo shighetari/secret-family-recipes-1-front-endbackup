@@ -11,14 +11,14 @@ import { postUser } from '../actions/index'
 const UserDashboard = (props, { postUser }) => {
     const users = props.users;
 
-console.log(users) // gave the state.users name 'users'
-console.log(props.users)// props.users is redux state
+    console.log(users) // gave the state.users name 'users'
+    console.log(props.users)// props.users is redux state
     return (
         <>
             <div>
-                test home page
+                <h1>  UserDashboard </h1>
+                <div> Recipe List + Search by recipe title/category <RecipeList /></div>
                 <AddRecipeForm />
-                <RecipeList />
                 <EditRecipe />
             </div>
         </>

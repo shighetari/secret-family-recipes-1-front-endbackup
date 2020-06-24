@@ -1,54 +1,58 @@
-import React, { useState } from "react"; //added use state for form state managment for R1 -fb
+import React, { useState, useEffect } from "react"; //added use state for form state managment for R1 -fb
 import { Link, useHistory } from "react-router-dom";
-import "../App.css";
-import { axiosWithAuth } from "../utils/axiosWithAuth";
+import "../App.scss";
+// import { axiosWithAuth } from "../utils/axiosWithAuth";
+import { connect } from "react-redux";
+import { loginUser } from "../actions";
+
 
 //Scehma for login page to meet same reqs as required for signup?
 //form state managment
 const initialState = {
   username: '',
-  password:''
+  password: ''
 }
-function LoginForm() { 
+function LoginForm({loginUser}) {
+
   const history = useHistory()
-  const [formValues, setFormValues] = useState(initialState) 
+  const [formValues, setFormValues] = useState(initialState)
+  const [errors, setErrors] = useState(initialState);
 
-  // Form Handlers
 
-  // I will end up moving your usehistory hook into the axioswithauth .then path but for now, good job!
-  // let history = useHistory();
-  // function submitHandler(e) {
-  //   e.preventDefault();
-  //   console.log("Logged In");
-  //   history.push("/home");
-  // }
-//FB WORK START:
-const submitHandler = e => {
-  e.preventDefault()
-  axiosWithAuth().post(`/api/auth/login`, formValues)
-  .then((res) => {
-    console.log(res)
-    window.localStorage.setItem("token" , res.data.token)
-    history.push("/home")
-  })
-  .catch((err) => {
-    console.log(err)
-    debugger
-  })
-  .finally(()=> {
+  // resets errors whenever user types
+  useEffect(() => {
+    setErrors(initialState)
+  }, [formValues])
 
-  })
+  const submitHandler = e => {
+    e.preventDefault()
+    loginUser(formValues, history, setErrors, errors)
+    // axiosWithAuth().post(`/api/auth/login`, formValues)
+    //   .then((res) => {
+    //     console.log(res)
+    //     window.localStorage.setItem("token", res.data.token)
+    //     history.push("/userdashboard")
+    //   })
+    //   .catch((err) => {
+    //     console.log(err)
+    //     setErrors({
+    //       ...errors,
+    //       message: "The Username or Password you entered does not exist. Please try again"
+    //     });
+    //     debugger
+    //   })
+    //   .finally(() => {
 
-}
-//FB WORK END\\
+    //   })
 
+  }
 
   function changeHandler(e) {
     const { name, value } = e.target;
 
     setFormValues({
-     ...formValues,
-     [name]:value
+      ...formValues,
+      [name]: value
     });
   }
 
@@ -57,27 +61,26 @@ const submitHandler = e => {
       <h1>Log in to access your secret recepies</h1>
       <form className="form" onSubmit={submitHandler}>
         <label className="form-label">
-          {" "}
           Type in your username
           <input
             className="form-input"
             type="username"
             name="username"
-            onChange={changeHandler} 
-            value={formValues.username} //change values from local state
+            onChange={changeHandler}
+            value={formValues.username}
           ></input>
         </label>
         <label className="form-label">
-          {" "}
           And your password
           <input
             className="form-input"
             type="password"
             name="password"
             onChange={changeHandler}
-            value={formValues.password} //change values from local state
+            value={formValues.password}
           ></input>
         </label>
+        {errors.message ? (<p className="error">{errors.message}</p>) : null}
         <button className="form-btn" type="submit">
           Log In
         </button>
@@ -87,4 +90,10 @@ const submitHandler = e => {
   );
 }
 
-export default LoginForm;
+const MapStateToProps = state => {
+  return {
+
+  }
+}
+
+export default connect(MapStateToProps, {loginUser})(LoginForm)

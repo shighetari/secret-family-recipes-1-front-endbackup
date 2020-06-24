@@ -1,46 +1,42 @@
 import React from 'react';
-import { BrowserRouter as Route, Link, Switch } from "react-router-dom";
-import './App.css';
+import { Route, Link, Switch } from "react-router-dom";
+import './App.scss';
 // importing components
 import SignupForm from './components/SignupForm'
 import LoginForm from './components/LoginForm'
 import UserDashboard from "./components/UserDashboard"
 import PrivateRoute from './components/PrivateRoute'
+import Navbar from './components/Navbar'
 // import Loader from "react-loader-spinner"; // saving this for the login for isLoading animation
 
 
 function App() {
 
-  const logout = () => {
-    const token = window.localStorage.getItem("token")
 
-    if (token) {
-      window.localStorage.removeItem("token")
-    } else {
-      alert('you are not logged in anymore')
-    }
-  }
-
+  /*****************************************************************\
+                        squeeky clean
+  \*****************************************************************/
 
   return (
-    <div className="App">
-      {/* will use navbar to avoid these links */}
-     <Link to= "/login" onClick = {logout} >Logout</Link> 
-     <Link to= "/login" >Login</Link> 
-      <Switch>
+    <div>
 
-        <Route path='/login' >
-        <LoginForm />
+      {/* will use navbar to avoid these links */}
+
+      <Navbar />
+      <Switch>
+        <Route exact path='/' >
+          <LoginForm />
         </Route>
 
         <Route path='/signup'>
-          <SignupForm/>
+          <SignupForm />
         </Route>
 
-        {/* start of private routes */}
-        <PrivateRoute path='/userdashboard' component={UserDashboard}/>
 
+        {/* start of private routes */}
+        <PrivateRoute path='/userdashboard/' component={UserDashboard} />
       </Switch>
+
     </div>
   );
 }

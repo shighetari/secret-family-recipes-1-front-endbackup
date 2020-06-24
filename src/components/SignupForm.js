@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { Link, useHistory } from 'react-router-dom'
 import * as Yup from "yup";
-import '../App.css'
+import "../App.scss";
 //imported axios with auth - fb
 import { axiosWithAuth } from "../utils/axiosWithAuth";
 // import Axios from "axios"; //set up axios for R1
 import { useLocalStorage } from "../utils/useLocalStorage"; // added local storage
 
 //importing signup form schema
-import signupSchema from './signupSchema';
+import formSchema from './formSchema';
 
 
 
@@ -16,57 +16,26 @@ import signupSchema from './signupSchema';
 const initialState = {
   username: '',
   password: '',
-  // email: '' //no value yet on back end as of now
 }
-function SignupForm(/*props*/) { // we shouldn't need props unless passing in redux state
-  const [formValues, setFormValues] = useState(initialState)
-  //added username slot since that's what our back end has right now|| NVM just re-assigned value to initstate since it as same properities
+
+function SignupForm() {
+
+  // const [formValues, setFormValues] = useState(initialState)
   const [formState, setFormState] = useLocalStorage(`formValues`, initialState)
-
-  // you only need one state with the values 'email: password:'
-  // const [newUser, setNewUser] = useState({
-  //   email: '',
-  //   password:''
-  // })
-
-  const [errors, setErrors] = useState({ // this can also use init state
-    email: "",
-    password: ""
-  });
-
+  const [errors, setErrors] = useState(initialState);
   const [buttonDisabled, setButtonDisabled] = useState(true)
-
-  // const {
-  //   formValues,
-  //   setFormValues,
-  // } = props;          /* we won't need these props since we're using form state management and not passing through App*/
-
 
   //sigup button validation
   useEffect(() => {
-    signupSchema.isValid(formValues).then(valid => {
+    formSchema.isValid(formState).then(valid => {
       setButtonDisabled(!valid);
     });
-  }, [formValues]);
+  }, [formState]);
 
   // Form Handlers
-  // const history = useHistory()
-  /*
-    function submitHandler(e) { //axios callback goes here
-      e.preventDefault();
-      console.log("New user created");
-      setFormValues(formValues);//I think I see what you're trying to do here, clear the values once submitited but you can do this with only one state :)
-      setFormValues({
-        email: "",
-        password: "",
-      });
-       history.push('/home') // might want to push this to the login page 
-    }
-  */
-  //************Start of FB additions************\\
   const history = useHistory()
-  const postNewUsername = (newUsername) => {
 
+  const postNewUsername = (newUsername) => {
     axiosWithAuth().post('/api/auth/register', newUsername)
       .then((res => {
         console.log(res)
@@ -91,46 +60,31 @@ function SignupForm(/*props*/) { // we shouldn't need props unless passing in re
     postNewUsername(newUsername)
   }
 
-  //made a basic changehandler to test sign up
+
   function changeHandler(e) {
-    const name = e.target.name
-    const value = e.target.value
+    const { name, value } = e.target;
+
+    Yup
+    .reach(formSchema, name)
+    .validate(value)
+    .then(valid => {
+      setErrors({
+        ...errors,
+        [name]: ""
+      });
+    })
+    .catch(err => {
+      setErrors({
+        ...errors,
+        [name]: err.errors[0]
+      });
+    });
 
     setFormState({
       ...formState,
-      [name]: value
-    })
-
+      [name]: value,
+    });
   }
-
-  //************End of FB additions ************\\
-
-
-
-  // function changeHandler(e) {
-  //   const { name, value } = e.target;
-
-  //   Yup
-  //   .reach(signupSchema, name)
-  //   .validate(value)
-  //   .then(valid => {
-  //     setErrors({
-  //       ...errors,
-  //       [name]: ""
-  //     });
-  //   })
-  //   .catch(err => {
-  //     setErrors({
-  //       ...errors,
-  //       [name]: err.errors[0]
-  //     });
-  //   });
-
-  //   setFormValues({
-  //     ...formValues,
-  //     [name]: value,
-  //   });
-  // }
 
   return (
     <div className='form-container'>
@@ -138,17 +92,6 @@ function SignupForm(/*props*/) { // we shouldn't need props unless passing in re
       <form
         className='form'
         onSubmit={submitHandler}>
-        {/* <label className='form-label'>
-          What´s your email address
-          <input
-            className='form-input'
-            type="email"
-            name="email"
-            onChange={changeHandler}
-            value={formState.email} // changed to formstate from formValues
-          ></input>
-          {errors.email ? (<p className="error">{errors.email}</p>) : null}
-        </label> */}
         <label className='form-label'>
           Set your username
           <input
@@ -156,19 +99,19 @@ function SignupForm(/*props*/) { // we shouldn't need props unless passing in re
             type="username"
             name="username"
             onChange={changeHandler}
-            value={formState.username} // changed to formstate from formValues
+            value={formState.username} 
           ></input>
-          {errors.password ? (<p className="error">{errors.password}</p>) : null}
+          {errors.username ? (<p className="error">{errors.username}</p>) : null}
         </label>
 
         <label className='form-label'>
-          Set your Password
+          Set your password
           <input
             className='form-input'
             type="password"
             name="password"
             onChange={changeHandler}
-            value={formState.password} // changed to formstate from formValues
+            value={formState.password} 
           ></input>
           {errors.password ? (<p className="error">{errors.password}</p>) : null}
         </label>
@@ -178,9 +121,8 @@ function SignupForm(/*props*/) { // we shouldn't need props unless passing in re
           disabled={buttonDisabled}>
           Create Account
         </button>
-        <button>test signup button </button>
       </form>
-      <Link to='/login'>Already have an account? Log In</Link>
+      <Link to='/'>Already have an account? Log In</Link>
     </div>
   );
 }
