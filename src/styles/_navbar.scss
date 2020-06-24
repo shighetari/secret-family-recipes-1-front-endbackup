@@ -1,7 +1,9 @@
 
+
 .navbar{
+    color: $white;
     display: flex;
-    background-color: aquamarine;
+    background-color: $backgroundDark;
     justify-content: space-between;
     align-items: center;
     padding:0 2%;
@@ -13,7 +15,7 @@
         justify-content: space-between;
 
         a{
-            color: black;
+            color: $white;
         }
     }
 }

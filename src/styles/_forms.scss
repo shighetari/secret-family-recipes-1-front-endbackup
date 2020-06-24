@@ -46,11 +46,11 @@
     padding: 12px;
     border-radius: 16px;
     border:none;
-    background-color: aquamarine;
+    background-color: $accent;
     outline: none;
 
     &:enabled{
-        box-shadow: 5px 5px 1px 1px rgb(62, 241, 182);
+        box-shadow: 5px 5px 1px 1px $accentDark;
         cursor: pointer;
 
         &:hover{
