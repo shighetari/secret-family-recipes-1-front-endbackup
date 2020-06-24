@@ -14,7 +14,8 @@ const initialState = {
     recipes: [],
     error: '',
     users: {},
-    refresh: false,
+    favRecipes: []
+    
 }
 
 const rootReducer = (state = initialState, action) => {

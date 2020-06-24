@@ -34,7 +34,7 @@ function App() {
 
 
         {/* start of private routes */}
-        <PrivateRoute path='/userdashboard/' component={UserDashboard} />
+        <Route path='/userdashboard/' component={UserDashboard} />
       </Switch>
 
     </div>
