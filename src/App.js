@@ -32,10 +32,6 @@ function App() {
           <SignupForm />
         </Route>
 
-        <Route path='/dashboard'>
-          <UserDashboard />
-        </Route>
-
         {/* start of private routes */}
         <PrivateRoute path='/userdashboard/' component={UserDashboard} />
       </Switch>
