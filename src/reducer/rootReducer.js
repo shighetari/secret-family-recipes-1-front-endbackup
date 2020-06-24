@@ -5,17 +5,26 @@ import {
     REMOVE_RECIPE,
     GET_RECIPE,
     FAVORITE_RECIPE,
-    AXIOS_ERROR
+    AXIOS_ERROR,
+    LOGIN_USER
 } from "../actions/index"
 
 //InitialState for global State
 const initialState = {
     recipes: [],
-    error: ''
+    error: '',
+    users: {},
+    favRecipes: []
+    
 }
 
 const rootReducer = (state = initialState, action) => {
     switch (action.type) {
+        case LOGIN_USER: 
+        return {
+            ...state,
+            users: action.payload
+        }
         case ADD_RECIPE:
             return {
                 ...state,

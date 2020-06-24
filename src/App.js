@@ -1,74 +1,40 @@
-import React, { useState, useEffect } from 'react';
-import { Switch, Route, Link } from 'react-router-dom'
-import * as Yup from "yup";
-import './App.css';
-//components
-import AddRecipeForm from './components/AddRecipeForm';
-import EditRecipe from './components/EditRecipe'
+import React from 'react';
+import { Route, Link, Switch } from "react-router-dom";
+import './App.scss';
 // importing components
 import SignupForm from './components/SignupForm'
 import LoginForm from './components/LoginForm'
-
-//importing signup form schema
-import signupSchema from './components/signupSchema';
-
+import UserDashboard from "./components/UserDashboard"
+import PrivateRoute from './components/PrivateRoute'
+import Navbar from './components/Navbar'
+// import Loader from "react-loader-spinner"; // saving this for the login for isLoading animation
 
 
 function App() {
 
-  // Entire app state
-  const [newUser, setNewUser] = useState({
-    email: '',
-    password: ''
-  })
 
-  const [formValues, setFormValues] = useState({
-    email: '',
-    password: ''
-  })
-
-  const [errors, setErrors] = useState({
-    email: "",
-    password: ""
-  });
-
-  const [buttonDisabled, setButtonDisabled] = useState(true)
-
-
-  //sigup button validation
-  useEffect(() => {
-    signupSchema.isValid(formValues).then(valid => {
-      setButtonDisabled(!valid);
-    });
-  }, [formValues]);
-
-
+  /*****************************************************************\
+                        squeeky clean
+  \*****************************************************************/
 
   return (
+    <div>
 
-    <div className="App">
-      <Link to='/login'>Login</Link>
-      <Link to='/signup'>Signup</Link>
+      {/* will use navbar to avoid these links */}
+
+      <Navbar />
       <Switch>
-        <Route path='/home'>
-          <div>
-            <h1>{newUser.email} Family Recepies</h1>
-          </div>
+        <Route exact path='/' >
+          <LoginForm />
         </Route>
-        <Route path='/login'>
-          <LoginForm
-            formValues={formValues}
-            setFormValues={setFormValues} />
-        </Route>
+
         <Route path='/signup'>
-          <SignupForm
-            setNewUser={setNewUser}
-            formValues={formValues}
-            setFormValues={setFormValues}
-            buttonDisabled={buttonDisabled}
-            errors={errors}
-            setErrors={setErrors} />
+          <SignupForm />
         </Route>
+
+
+        {/* start of private routes */}
+        <Route path='/userdashboard/' component={UserDashboard} />
       </Switch>
 
     </div>

@@ -9,49 +9,92 @@ export const UPDATE_RECIPE = "UPDATE_RECIPE"
 //tbd downbellow 
 export const FAVORITE_RECIPE = "FAVORITE_RECIPE"
 export const AXIOS_ERROR = "AXIOS_ERROR" // testing
+export const POSTNEW_USER = "POSTNEW_USER" // sign up
+export const LOGIN_USER = "LOGIN_USER" //login
 
+
+//***********Start of user actions ***********
 export const getUser = () => dispatch => {
+    //not .get set up yet 
 
 }
 
+export const loginUser = (formValues, history, setErrors, errors) => dispatch => {
+    //set loading to true when action is fired  before axios call fires
+    axiosWithAuth().post(`/api/auth/login`, formValues)
+        .then((res) => {
+            // console.log(res.config.data)
+            window.localStorage.setItem("token", res.data.token)
+            history.push("/userdashboard")
+            dispatch({ type: LOGIN_USER, payload: formValues })
+        })
+        .catch((err) => {
+            console.log(err)
+            setErrors({
+                ...errors,
+                message: "The Username or Password you entered does not exist. Please try again"
+            });
+            debugger
+        })
+        .finally(() => {
 
+        })
+
+}
+
+//sign up (axios.post)
+export const postUser = (newUser) => dispatch => {
+    axiosWithAuth()
+        .post('api/auth/register', newUser)
+        .then((res) => {
+            console.log(res)
+        })
+        .catch((err) => {
+            console.log(err)
+        })
+}
+
+//***********End of user actions ***********
+
+//***********Start of CRUD operations ***********
 //.post (Create) add
 export const addRecipe = (newRecipe) => dispatch => { //Will pass correct state information once forms are complete
     axiosWithAuth()
-    .post('/TBDWhenIseeData', newRecipe)
-    .then((res) => {
-        console.log(res)
-    })
-    .catch((err) => {
-        debugger
-    })
+        .post('/TBDWhenIseeData', newRecipe)
+        .then((res) => {
+            console.log(res)
+        })
+        .catch((err) => {
+            debugger
+        })
     // .finally(null)
 }
 
 
 //.delete (Delete)
 export const removeRecipe = () => dispatch => {
-    
+
 }
 
 
 //.get (Read) 
 export const getRecipe = () => dispatch => {
-axiosWithAuth()
-.get('/tbd')
-.then((res) => {
-    console.log(res) // waiting to see what the data looks like
-    dispatch({ type: GET_RECIPE, payload: res.data})
-})
-.catch((err) => {
-    console.log(err)
-    dispatch({type: AXIOS_ERROR, payload: err.data})
-})
+    axiosWithAuth()
+        .get('/tbd')
+        .then((res) => {
+            console.log(res) // waiting to see what the data looks like
+            // dispatch({ type: GET_RECIPE, payload: res.data})
+        })
+        .catch((err) => {
+            console.log(err)
+            // dispatch({type: AXIOS_ERROR, payload: err.message})
+        })
 }
 
 
 //.put (Update) takes and ID and {object} to update
 export const editRecipe = () => dispatch => {
+
 
 }
 

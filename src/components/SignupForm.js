@@ -1,51 +1,78 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useHistory } from 'react-router-dom'
 import * as Yup from "yup";
+import "../App.scss";
+//imported axios with auth - fb
+import { axiosWithAuth } from "../utils/axiosWithAuth";
+// import Axios from "axios"; //set up axios for R1
+import { useLocalStorage } from "../utils/useLocalStorage"; // added local storage
 
 //importing signup form schema
-import signupSchema from './signupSchema';
+import formSchema from './formSchema';
 
-function SignupForm(props) {
-  const {
-    setNewUser,
-    formValues,
-    setFormValues,
-    buttonDisabled,
-    errors,
-    setErrors
-  } = props;
+
+
+//added init state for form state
+const initialState = {
+  username: '',
+  password: '',
+}
+
+function SignupForm() {
+
+  // const [formValues, setFormValues] = useState(initialState)
+  const [formState, setFormState] = useLocalStorage(`formValues`, initialState)
+  const [errors, setErrors] = useState(initialState);
+  const [buttonDisabled, setButtonDisabled] = useState(true)
+
+  //sigup button validation
+  useEffect(() => {
+    formSchema.isValid(formState).then(valid => {
+      setButtonDisabled(!valid);
+    });
+  }, [formState]);
 
   // Form Handlers
   const history = useHistory()
 
-  function submitHandler(e) {
-    e.preventDefault();
-    console.log("New user created");
-    setNewUser(formValues);
-    setFormValues({
-      email: "",
-      password: "",
-    });
+  const postNewUsername = (newUsername) => {
+    axiosWithAuth().post('/api/auth/register', newUsername)
+      .then((res => {
+        console.log(res)
+        setFormState(initialState)
+        history.push("/login")
+      }))
+      .catch((err) => {
+        console.log(err)
+        debugger
+      })
 
-    history.push('/home')
   }
+
+  //onSubmit
+  const submitHandler = e => {
+    e.preventDefault()
+    const newUsername = {
+      username: formState.username.trim(),
+      password: formState.password.trim(),
+    }
+    //pass in the function for axios call or useEffect
+    postNewUsername(newUsername)
+  }
+
 
   function changeHandler(e) {
     const { name, value } = e.target;
 
     Yup
-    .reach(signupSchema, name)
-    //we can then run validate using the value
+    .reach(formSchema, name)
     .validate(value)
-    // if the validation is successful, we can clear the error message
     .then(valid => {
       setErrors({
         ...errors,
         [name]: ""
       });
     })
-    /* if the validation is unsuccessful, we can set the error message to the message 
-      returned from yup (that we created in our schema) */
     .catch(err => {
       setErrors({
         ...errors,
@@ -53,43 +80,49 @@ function SignupForm(props) {
       });
     });
 
-    setFormValues({
-      ...formValues,
+    setFormState({
+      ...formState,
       [name]: value,
     });
   }
 
   return (
-    <div>
-      <h1>This is the Signup Form</h1>
-      <form onSubmit={submitHandler}>
-        <label>
-          Email:
+    <div className='form-container'>
+      <h1>Please create an account so we can save your secret recepies</h1>
+      <form
+        className='form'
+        onSubmit={submitHandler}>
+        <label className='form-label'>
+          Set your username
           <input
-            type="email"
-            name="email"
-            placeholder="Your email"
+            className='form-input'
+            type="username"
+            name="username"
             onChange={changeHandler}
-            value={formValues.email}
+            value={formState.username} 
           ></input>
-          {errors.email? (<p className="error">{errors.email}</p>) : null}
+          {errors.username ? (<p className="error">{errors.username}</p>) : null}
         </label>
-        <label>
-          Password:
+
+        <label className='form-label'>
+          Set your password
           <input
+            className='form-input'
             type="password"
             name="password"
-            placeholder="Your password"
             onChange={changeHandler}
-            value={formValues.password}
+            value={formState.password} 
           ></input>
           {errors.password ? (<p className="error">{errors.password}</p>) : null}
         </label>
-        <button type="submit" disabled={buttonDisabled}>
+        <button
+          className='form-btn'
+          type="submit"
+          disabled={buttonDisabled}>
           Create Account
         </button>
       </form>
-      <Link to='/login'>Already have an account? Log In</Link>
+      <Link to='/'>Already have an account? Log In</Link>
     </div>
   );
 }
