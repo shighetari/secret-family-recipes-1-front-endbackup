@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, useHistory } from 'react-router-dom'
+import { motion } from 'framer-motion'
 import * as Yup from "yup";
 import "../App.scss";
 //imported axios with auth - fb
@@ -9,8 +10,8 @@ import { useLocalStorage } from "../utils/useLocalStorage"; // added local stora
 
 //importing signup form schema
 import formSchema from './formSchema';
-
-
+// importing modal
+import SignupModal from './signupModal'
 
 //added init state for form state
 const initialState = {
@@ -24,6 +25,7 @@ function SignupForm() {
   const [formState, setFormState] = useLocalStorage(`formValues`, initialState)
   const [errors, setErrors] = useState(initialState);
   const [buttonDisabled, setButtonDisabled] = useState(true)
+  const [showModal, setShowModal] = useState(false);
 
   //sigup button validation
   useEffect(() => {
@@ -40,7 +42,10 @@ function SignupForm() {
       .then((res => {
         console.log(res)
         setFormState(initialState)
-        history.push("/login")
+        setShowModal(true)
+        setTimeout(()=>{
+          history.push("/userdashboard")
+        },3000)
       }))
       .catch((err) => {
         console.log(err)
@@ -56,6 +61,7 @@ function SignupForm() {
       username: formState.username.trim(),
       password: formState.password.trim(),
     }
+
     //pass in the function for axios call or useEffect
     postNewUsername(newUsername)
   }
@@ -87,6 +93,8 @@ function SignupForm() {
   }
 
   return (
+    <>
+    <SignupModal showModal={showModal} setShowModal={setShowModal}/>
     <div className='form-container'>
       <h1>Please create an account so we can save your secret recepies</h1>
       <form
@@ -124,6 +132,7 @@ function SignupForm() {
       </form>
       <Link to='/'>Already have an account? Log In</Link>
     </div>
+    </>
   );
 }
 
