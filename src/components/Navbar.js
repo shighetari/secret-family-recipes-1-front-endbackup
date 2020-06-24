@@ -4,10 +4,13 @@ import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { loginUser } from "../actions/index"
 
+import Modal from './Modal'
+import '../App.scss'
+
 
 const Navbar = ({users}) => {
 const [isloggedin, setIsLoggedin] = useState(false)
-
+const [showModal, setShowModal] = useState(false);
 useEffect(() => {
     if (localStorage.getItem("token")){
         setIsLoggedin(true)
@@ -20,25 +23,30 @@ useEffect(() => {
     
         if (token) {
           window.localStorage.removeItem("token")
+          setShowModal(true)
           setIsLoggedin(false)
-          alert('You have been logged out')
+          setTimeout(()=>{
+            setShowModal(false)
+          },2000)
         } 
         
       }
 
     return (
-
-        <nav>
+        <>
+        <Modal showModal={showModal} setShowModal={setShowModal} title='You have been logged out'/>
+        <nav className='navbar'>
             <h1> Secret Family Recipes </h1>
-            <Link to="/" onClick={logout} >{isloggedin ? "Logout" : "Login"}</Link>
-            {/* <Link to="/">Login</Link> */}
-            <br/>
-            <Link to="/userdashboard"> UserDashboard</Link>
-        { isloggedin &&  <div> Welcome back, {users.username}</div>}
-        {/* I'll try to use localStorage to store the value incase user causes component to rerender/refresh */}
-            
-
+            { isloggedin &&  <h2> Welcome back, {users.username}</h2>}
+             {/* I'll try to use localStorage to store the value incase user causes component to rerender/refresh */}
+            <div className='navbar-links'>
+                <Link to="/" onClick={logout} >{isloggedin ? "Logout" : "Login"}</Link>
+                {/* <Link to="/">Login</Link> */}
+                <br/>
+                <Link to="/userdashboard"> UserDashboard</Link>
+            </div>
         </nav>
+        </>
     )
 }
 

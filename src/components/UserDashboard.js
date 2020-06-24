@@ -6,6 +6,7 @@ import EditRecipe from './EditRecipe'
 import { connect } from 'react-redux'
 import { postUser } from '../actions/index'
 
+import '../App.scss'
 
 
 const UserDashboard = (props, { postUser }) => {
@@ -15,7 +16,7 @@ const UserDashboard = (props, { postUser }) => {
     console.log(props.users)// props.users is redux state
     return (
         <>
-            <div>
+            <div className='dashboard'>
                 <h1>  UserDashboard </h1>
                 <div> Recipe List + Search by recipe title/category <RecipeList /></div>
                 <AddRecipeForm />
