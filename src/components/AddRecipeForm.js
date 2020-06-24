@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import {addRecipe} from "../actions/index"
 import {connect} from "react-redux"
 
+import '../App.scss'
 
 const initialState = {
         title: '',
@@ -24,49 +25,51 @@ const AddRecipeForm = ({addRecipe}) => {
     }
 
     return (
-        <form onSubmit={handleSubmit}>
-            <br/><label>Title Of Recipe </label>
+        <form 
+        className='recipe-form'
+        onSubmit={handleSubmit}>
+            <br/><label className='recipe-form-label'>Title Of Recipe </label>
             <input 
+                className='recipe-form-input'
                 onChange={handleChange}
                 name='title'
                 value={newRecipe.title}
-                placeholder='title of recipe'
                 required
             />
-            <br/> <label>Source: </label>
+            <br/> <label className='recipe-form-label'>Source: </label>
             <input 
+                className='recipe-form-input'
                 onChange={handleChange}
                 name='source'
                 value={newRecipe.source}
-                placeholder='title of source'
                 required
             />
-                <br/> <label>ingredients: </label>
+                <br/> <label className='recipe-form-label'>ingredients: </label>
             <input 
+                className='recipe-form-input'
                 onChange={handleChange}
                 name='ingredients'
                 value={newRecipe.ingredients}
-                placeholder='list of ingredients'
                 required
             />
-                        <br/> <label> instructions: </label>
+                        <br/> <label className='recipe-form-label'> instructions: </label>
             <input 
+                className='recipe-form-input'
                 onChange={handleChange}
                 name='instructions'
                 value={newRecipe.instructions}
-                placeholder='instructions'
                 required
             />
-                        <br/> <label>Category: </label>
+                        <br/> <label className='recipe-form-label'>Category: </label>
             <input 
+                className='recipe-form-input'
                 onChange={handleChange}
                 name='category'
                 value={newRecipe.category}
-                placeholder='category'
                 required
             />
             <br/>
-            <button> Add Recipe </button>
+            <button className='form-btn'> Add Recipe </button>
         </form>
     )
 }
