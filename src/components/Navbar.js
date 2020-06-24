@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { loginUser } from "../actions/index"
 
+import '../App.scss'
+
 
 const Navbar = ({users}) => {
 const [isloggedin, setIsLoggedin] = useState(false)
@@ -28,16 +30,16 @@ useEffect(() => {
 
     return (
 
-        <nav>
+        <nav className='navbar'>
             <h1> Secret Family Recipes </h1>
-            <Link to="/" onClick={logout} >{isloggedin ? "Logout" : "Login"}</Link>
-            {/* <Link to="/">Login</Link> */}
-            <br/>
-            <Link to="/userdashboard"> UserDashboard</Link>
-        { isloggedin &&  <div> Welcome back, {users.username}</div>}
-        {/* I'll try to use localStorage to store the value incase user causes component to rerender/refresh */}
-            
-
+            { isloggedin &&  <h2> Welcome back, {users.username}</h2>}
+             {/* I'll try to use localStorage to store the value incase user causes component to rerender/refresh */}
+            <div className='navbar-links'>
+                <Link to="/" onClick={logout} >{isloggedin ? "Logout" : "Login"}</Link>
+                {/* <Link to="/">Login</Link> */}
+                <br/>
+                <Link to="/userdashboard"> UserDashboard</Link>
+            </div>
         </nav>
     )
 }
