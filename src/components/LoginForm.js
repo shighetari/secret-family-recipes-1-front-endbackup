@@ -27,23 +27,6 @@ function LoginForm({ loginUser }) {
   const submitHandler = e => {
     e.preventDefault()
     loginUser(formValues, history, setErrors, errors) //switched to redux
-    // axiosWithAuth().post(`/api/auth/login`, formValues) //antonios work
-    //   .then((res) => {
-    //     console.log(res)
-    //     window.localStorage.setItem("token", res.data.token)
-    //     history.push("/userdashboard")
-    //   })
-    //   .catch((err) => {
-    //     console.log(err)
-    //     setErrors({
-    //       ...errors,
-    //       message: "The Username or Password you entered does not exist. Please try again"
-    //     });
-    //     debugger
-    //   })
-    //   .finally(() => {
-
-    //   })
 
   }
 

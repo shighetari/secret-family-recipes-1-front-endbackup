@@ -98,7 +98,7 @@ export const removeRecipe = (id) => dispatch => {
             dispatch({type: REMOVE_RECIPE, payload: res.data.deletedRecipe})
         })
         .catch((err) => {
-            console.log(err)
+            console.log(err) //will fix this after push
         })
 }
 

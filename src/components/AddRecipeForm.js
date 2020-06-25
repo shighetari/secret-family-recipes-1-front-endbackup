@@ -4,6 +4,7 @@ import {addRecipe} from "../actions/index"
 import {connect} from "react-redux"
 import { useHistory } from 'react-router-dom'
 
+import '../App.scss'
 
 import '../App.scss'
 
@@ -42,12 +43,12 @@ const AddRecipeForm = ({addRecipe}) => {
                 value={newRecipe.title}
                 required
             />
-            <br/> <label className='recipe-form-label'>Source: </label>
+            <br/> <label className='recipe-form-label'>User: </label>
             <input 
                 className='recipe-form-input'
                 onChange={handleChange}
-                name='source'
-                value={newRecipe.source}
+                name='user'
+                value={newRecipe.user}
                 required
             />
                 <br/> <label className='recipe-form-label'>ingredients: </label>
@@ -64,8 +65,7 @@ const AddRecipeForm = ({addRecipe}) => {
                 onChange={handleChange}
                 name='instructions'
                 value={newRecipe.instructions}
-                placeholder='instructions'
-                // required
+                required
             />
                         <br/> <label className='recipe-form-label'>Category: </label>
             <input 
@@ -73,18 +73,16 @@ const AddRecipeForm = ({addRecipe}) => {
                 onChange={handleChange}
                 name='category'
                 value={newRecipe.category}
-                placeholder='category'
-                // required
+                required
             />
-            <br/>
             
-            <label>User_id </label>
+            <br/> <label className='recipe-form-label'>user_id </label>
             <input 
+                className='recipe-form-input'
                 onChange={handleChange}
                 name='user_id'
                 value={newRecipe.user_id}
-                placeholder='user_id'
-                // required
+                required
             />
             <br/>
             <button className='form-btn'> Add Recipe </button>

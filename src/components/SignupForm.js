@@ -45,16 +45,6 @@ function SignupForm({signupUser}) {
 
   const postNewUsername = (newUsername) => {
     
-    // axiosWithAuth().post('/api/auth/register', newUsername)
-    //   .then((res => {
-    //     console.log(res)
-    //     setFormState(initialState)
-    //     history.push("/")
-    //   }))
-    //   .catch((err) => {
-    //     console.log(err)
-    //     debugger
-    //   })
     signupUser(newUsername,  history)
 
   }

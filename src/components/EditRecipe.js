@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 //redux
-import { editRecipe, getRecipe, getSpecificRecipe } from "../actions/index"
+import { editRecipe, getSpecificRecipe } from "../actions/index"
 import { connect } from "react-redux"
 import { useHistory } from 'react-router-dom'
 
@@ -55,8 +55,8 @@ const EditRecipe = (props) => {
     return (
         <>
         { props.isEditing &&  
-            <form onSubmit={handleSubmit}>
-                <br /><label>Title Of Recipe </label>
+            <form className='recipe-form' onSubmit={handleSubmit}>
+                <br /><label className='recipe-form-label' >Title Of Recipe </label>
                 <input
                     className='recipe-form-input'
                     onChange={handleChange}
@@ -64,8 +64,15 @@ const EditRecipe = (props) => {
                     value={editedRecipe.title}
                 // required
                 />
-
-                <br /> <label>ingredients: </label>
+                <br /> <label className='recipe-form-label'>User: </label>
+                <input
+                    className='recipe-form-input'
+                    onChange={handleChange}
+                    name='user'
+                    value={editedRecipe.user}
+                // required
+                />
+                <br /> <label className='recipe-form-label'>ingredients: </label>
                 <input
                     className='recipe-form-input'
                     onChange={handleChange}
@@ -89,26 +96,18 @@ const EditRecipe = (props) => {
                     value={editedRecipe.category}
                 // required
                 />
-                <br />
-                <label>User: </label>
+                  <br /> <label className='recipe-form-label'>user_id: </label>
                 <input
-                    onChange={handleChange}
-                    name='user'
-                    value={editedRecipe.user}
-                    placeholder='title of source'
-                // required
-                />
-                <br /> <label>User_ID: </label>
-                <input
+                    className='recipe-form-input'
                     onChange={handleChange}
                     name='user_id'
                     value={editedRecipe.user_id}
-                    placeholder='title of source'
                 // required
                 />
-                <button > Update Recipe</button>
-        </form> }
-        </> 
+                <br />
+                <button className='form-btn'> Update Recipe</button>
+            </form>}
+        </>
     )
 }
 
