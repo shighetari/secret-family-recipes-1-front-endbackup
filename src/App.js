@@ -11,20 +11,16 @@ import AddRecipeForm from './components/AddRecipeForm';
 import EditRecipe from './components/EditRecipe';
 // import Loader from "react-loader-spinner"; // saving this for the login for isLoading animation
 
+// import Loader from "react-loader-spinner"; // saving this for the login for isLoading animation
 
 function App() {
-
-
   /*****************************************************************\
                         squeeky clean
   \*****************************************************************/
 
   return (
     <div>
-
-      {/* will use navbar to avoid these links */}
-
-      <Navbar />
+      <Navbar  />
       <Switch>
         <Route exact path='/' >
           <LoginForm />
@@ -33,7 +29,6 @@ function App() {
         <Route path='/signup'>
           <SignupForm />
         </Route>
-
 
         {/* start of private routes */}
         <PrivateRoute path='/userdashboard/' component={UserDashboard} />

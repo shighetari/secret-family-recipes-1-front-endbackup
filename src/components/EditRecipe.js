@@ -55,8 +55,8 @@ const EditRecipe = (props) => {
     return (
         <>
         { props.isEditing &&  
-            <form onSubmit={handleSubmit}>
-                <br /><label>Title Of Recipe </label>
+            <form className='recipe-form' onSubmit={handleSubmit}>
+                <br /><label className='recipe-form-label' >Title Of Recipe </label>
                 <input
                     className='recipe-form-input'
                     onChange={handleChange}
@@ -64,8 +64,15 @@ const EditRecipe = (props) => {
                     value={editedRecipe.title}
                 // required
                 />
-
-                <br /> <label>ingredients: </label>
+                <br /> <label className='recipe-form-label'>Source: </label>
+                <input
+                    className='recipe-form-input'
+                    onChange={handleChange}
+                    name='source'
+                    value={editedRecipe.source}
+                // required
+                />
+                <br /> <label className='recipe-form-label'>ingredients: </label>
                 <input
                     className='recipe-form-input'
                     onChange={handleChange}
@@ -90,25 +97,9 @@ const EditRecipe = (props) => {
                 // required
                 />
                 <br />
-                <label>User: </label>
-                <input
-                    onChange={handleChange}
-                    name='user'
-                    value={editedRecipe.user}
-                    placeholder='title of source'
-                // required
-                />
-                <br /> <label>User_ID: </label>
-                <input
-                    onChange={handleChange}
-                    name='user_id'
-                    value={editedRecipe.user_id}
-                    placeholder='title of source'
-                // required
-                />
-                <button > Update Recipe</button>
-        </form> }
-        </> 
+                <button className='form-btn'> Update Recipe</button>
+            </form>}
+        </>
     )
 }
 

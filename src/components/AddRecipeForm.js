@@ -4,6 +4,7 @@ import {addRecipe} from "../actions/index"
 import {connect} from "react-redux"
 import { useHistory } from 'react-router-dom'
 
+import '../App.scss'
 
 import '../App.scss'
 
@@ -64,8 +65,7 @@ const AddRecipeForm = ({addRecipe}) => {
                 onChange={handleChange}
                 name='instructions'
                 value={newRecipe.instructions}
-                placeholder='instructions'
-                // required
+                required
             />
                         <br/> <label className='recipe-form-label'>Category: </label>
             <input 
@@ -73,18 +73,7 @@ const AddRecipeForm = ({addRecipe}) => {
                 onChange={handleChange}
                 name='category'
                 value={newRecipe.category}
-                placeholder='category'
-                // required
-            />
-            <br/>
-            
-            <label>User_id </label>
-            <input 
-                onChange={handleChange}
-                name='user_id'
-                value={newRecipe.user_id}
-                placeholder='user_id'
-                // required
+                required
             />
             <br/>
             <button className='form-btn'> Add Recipe </button>
