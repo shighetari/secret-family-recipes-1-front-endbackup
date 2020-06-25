@@ -1,5 +1,8 @@
-.App {
-  text-align: center;
-}
 
-@import './styles/forms'
+@import './styles/variables';
+@import './styles/forms';
+@import './styles/navbar';
+@import './styles/userDashboard';
+@import './styles/recipeList';
+@import './styles/recepieForm';
+@import './styles/signupModal.scss';

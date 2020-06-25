@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, useHistory } from 'react-router-dom'
+import { motion } from 'framer-motion'
 import * as Yup from "yup";
 import "../App.scss";
 //imported axios with auth - fb
@@ -13,6 +14,8 @@ import { signupUser } from "../actions";
 //setting up redux
 
 
+// importing modal
+import Modal from './Modal'
 
 //added init state for form state
 const initialState = {
@@ -28,6 +31,7 @@ function SignupForm({signupUser}) {
   // const [formState, setFormState] = useState(initialState)
   const [errors, setErrors] = useState(initialState);
   const [buttonDisabled, setButtonDisabled] = useState(true)
+  const [showModal, setShowModal] = useState(false);
 
   //sigup button validation
   useEffect(() => {
@@ -41,16 +45,6 @@ function SignupForm({signupUser}) {
 
   const postNewUsername = (newUsername) => {
     
-    // axiosWithAuth().post('/api/auth/register', newUsername)
-    //   .then((res => {
-    //     console.log(res)
-    //     setFormState(initialState)
-    //     history.push("/")
-    //   }))
-    //   .catch((err) => {
-    //     console.log(err)
-    //     debugger
-    //   })
     signupUser(newUsername,  history)
 
   }
@@ -96,6 +90,8 @@ function SignupForm({signupUser}) {
   }
 
   return (
+    <>
+    <Modal showModal={showModal} setShowModal={setShowModal} title='You have successfully created an acount'/>
     <div className='form-container'>
       <h1>Please create an account so we can save your secret recepies</h1>
       <form
@@ -144,6 +140,7 @@ function SignupForm({signupUser}) {
       </form>
       <Link to='/'>Already have an account? Log In</Link>
     </div>
+    </>
   );
 }
 
