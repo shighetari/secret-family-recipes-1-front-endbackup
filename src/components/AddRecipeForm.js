@@ -4,12 +4,14 @@ import {addRecipe} from "../actions/index"
 import {connect} from "react-redux"
 
 
+
 const initialState = {
         title: '',
-        source:'',
+        user:'',
         ingredients: '',
         instructions: '',
-        category: ''
+        category: '',
+        user_id: '',
 }
 const AddRecipeForm = ({addRecipe}) => {
     const [newRecipe, setNewRecipe] = useState(initialState)
@@ -31,15 +33,15 @@ const AddRecipeForm = ({addRecipe}) => {
                 name='title'
                 value={newRecipe.title}
                 placeholder='title of recipe'
-                required
+                // required
             />
-            <br/> <label>Source: </label>
+            <br/> <label>User: </label>
             <input 
                 onChange={handleChange}
-                name='source'
-                value={newRecipe.source}
-                placeholder='title of source'
-                required
+                name='user'
+                value={newRecipe.user}
+                placeholder='title of user'
+                // required
             />
                 <br/> <label>ingredients: </label>
             <input 
@@ -47,7 +49,7 @@ const AddRecipeForm = ({addRecipe}) => {
                 name='ingredients'
                 value={newRecipe.ingredients}
                 placeholder='list of ingredients'
-                required
+                // required
             />
                         <br/> <label> instructions: </label>
             <input 
@@ -55,7 +57,7 @@ const AddRecipeForm = ({addRecipe}) => {
                 name='instructions'
                 value={newRecipe.instructions}
                 placeholder='instructions'
-                required
+                // required
             />
                         <br/> <label>Category: </label>
             <input 
@@ -63,7 +65,17 @@ const AddRecipeForm = ({addRecipe}) => {
                 name='category'
                 value={newRecipe.category}
                 placeholder='category'
-                required
+                // required
+            />
+            <br/>
+            
+            <label>User_id </label>
+            <input 
+                onChange={handleChange}
+                name='user_id'
+                value={newRecipe.user_id}
+                placeholder='user_id'
+                // required
             />
             <br/>
             <button> Add Recipe </button>

@@ -7,7 +7,8 @@ export const axiosWithAuth = () => {
   return axios.create({
     //sending request to server via function authenticator(req, res, next) for auth token
     headers: { authorization: token },
-    baseURL: 'https://secret-family-recipes-1.herokuapp.com/'
+    baseURL: 'https://recipes-bw.herokuapp.com/'
+    // baseURL: 'https://secret-family-recipes-1.herokuapp.com/'
   })
 }
 //end points 

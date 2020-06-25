@@ -20,6 +20,7 @@ useEffect(() => {
     
         if (token) {
           window.localStorage.removeItem("token")
+          window.localStorage.removeItem("userID")
           setIsLoggedin(false)
           alert('You have been logged out')
         } 
@@ -33,7 +34,9 @@ useEffect(() => {
             <Link to="/" onClick={logout} >{isloggedin ? "Logout" : "Login"}</Link>
             {/* <Link to="/">Login</Link> */}
             <br/>
-            <Link to="/userdashboard"> UserDashboard</Link>
+            <Link to="/userdashboard"> UserDashboard</Link> 
+            <br/>
+            <Link to="/addrecipe"> Add Recipe</Link>
         { isloggedin &&  <div> Welcome back, {users.username}</div>}
         {/* I'll try to use localStorage to store the value incase user causes component to rerender/refresh */}
             

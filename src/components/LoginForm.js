@@ -70,6 +70,7 @@ function LoginForm({ loginUser }) {
             value={formValues.username}
           ></input>
         </label>
+  
         <label className="form-label">
           And your password
           <input
@@ -90,10 +91,10 @@ function LoginForm({ loginUser }) {
   );
 }
 
-const MapStateToProps = state => {
-  return {
+// const MapStateToProps = state => {
+//   return {
 
-  }
-}
+//   }
+// }
 
-export default connect(MapStateToProps, { loginUser })(LoginForm)
+export default connect(null, { loginUser })(LoginForm)
