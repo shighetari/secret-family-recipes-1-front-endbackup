@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 //redux
-import { editRecipe, getRecipe, getSpecificRecipe } from "../actions/index"
+import { editRecipe, getSpecificRecipe } from "../actions/index"
 import { connect } from "react-redux"
 import { useHistory } from 'react-router-dom'
 
@@ -64,12 +64,12 @@ const EditRecipe = (props) => {
                     value={editedRecipe.title}
                 // required
                 />
-                <br /> <label className='recipe-form-label'>Source: </label>
+                <br /> <label className='recipe-form-label'>User: </label>
                 <input
                     className='recipe-form-input'
                     onChange={handleChange}
-                    name='source'
-                    value={editedRecipe.source}
+                    name='user'
+                    value={editedRecipe.user}
                 // required
                 />
                 <br /> <label className='recipe-form-label'>ingredients: </label>
@@ -94,6 +94,14 @@ const EditRecipe = (props) => {
                     onChange={handleChange}
                     name='category'
                     value={editedRecipe.category}
+                // required
+                />
+                  <br /> <label className='recipe-form-label'>user_id: </label>
+                <input
+                    className='recipe-form-input'
+                    onChange={handleChange}
+                    name='user_id'
+                    value={editedRecipe.user_id}
                 // required
                 />
                 <br />

@@ -43,12 +43,12 @@ const AddRecipeForm = ({addRecipe}) => {
                 value={newRecipe.title}
                 required
             />
-            <br/> <label className='recipe-form-label'>Source: </label>
+            <br/> <label className='recipe-form-label'>User: </label>
             <input 
                 className='recipe-form-input'
                 onChange={handleChange}
-                name='source'
-                value={newRecipe.source}
+                name='user'
+                value={newRecipe.user}
                 required
             />
                 <br/> <label className='recipe-form-label'>ingredients: </label>
@@ -73,6 +73,15 @@ const AddRecipeForm = ({addRecipe}) => {
                 onChange={handleChange}
                 name='category'
                 value={newRecipe.category}
+                required
+            />
+            
+            <br/> <label className='recipe-form-label'>user_id </label>
+            <input 
+                className='recipe-form-input'
+                onChange={handleChange}
+                name='user_id'
+                value={newRecipe.user_id}
                 required
             />
             <br/>
