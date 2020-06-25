@@ -4,6 +4,8 @@ import { connect } from "react-redux"
 //axios
 import { getRecipe } from "../actions"
 import Recipe from './Recipe'
+
+import '../App.scss'
 //props = state from mapstatetoprops 
 //{getRecipe} is an action from redux (actions.js) for the reducer
 const RecipeList = (props) => {
@@ -38,8 +40,9 @@ const RecipeList = (props) => {
             {/* inserted map here that will also return the Recipe component */}
             {/* adding search bar */}
             <input
+                className='searchbar'
                 type="text"
-                placeholder="search bar"
+                placeholder="search recepies"
                 name="searchbar"
                 value={search}
                 onChange={handleChange}

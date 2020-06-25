@@ -58,35 +58,35 @@ const EditRecipe = (props) => {
             <form onSubmit={handleSubmit}>
                 <br /><label>Title Of Recipe </label>
                 <input
+                    className='recipe-form-input'
                     onChange={handleChange}
                     name='title'
                     value={editedRecipe.title}
-                    placeholder='title of recipe'
                 // required
                 />
 
                 <br /> <label>ingredients: </label>
                 <input
+                    className='recipe-form-input'
                     onChange={handleChange}
                     name='ingredients'
                     value={editedRecipe.ingredients}
-                    placeholder='list of ingredients'
                 // required
                 />
-                <br /> <label> instructions: </label>
+                <br /> <label className='recipe-form-label'> instructions: </label>
                 <input
+                    className='recipe-form-input'
                     onChange={handleChange}
                     name='instructions'
                     value={editedRecipe.instructions}
-                    placeholder='instructions'
                 // required
                 />
-                <br /> <label>Category: </label>
+                <br /> <label className='recipe-form-label'>Category: </label>
                 <input
+                    className='recipe-form-input'
                     onChange={handleChange}
                     name='category'
                     value={editedRecipe.category}
-                    placeholder='category'
                 // required
                 />
                 <br />
