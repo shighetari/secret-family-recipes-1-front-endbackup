@@ -18,10 +18,7 @@ const UserDashboard = (props, { signupUser }) => {
         <>
             <div className='dashboard'>
                 <h1>  UserDashboard </h1>
-                <div> Recipe List + Search by recipe title/category <RecipeList /></div>
-                
-                {/* <EditRecipe /> */}
-                
+                <div className='recipe-list'> Recipe List + Search by recipe title/category <RecipeList /></div>        
             </div>
         </>
     )
