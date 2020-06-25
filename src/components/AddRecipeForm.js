@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 //redux
 import {addRecipe} from "../actions/index"
 import {connect} from "react-redux"
+import { useHistory } from 'react-router-dom'
 
 
 
@@ -13,16 +14,19 @@ const initialState = {
         category: '',
         user_id: '',
 }
+
 const AddRecipeForm = ({addRecipe}) => {
     const [newRecipe, setNewRecipe] = useState(initialState)
 
     const handleChange = (event) => {
         setNewRecipe({...newRecipe, [event.target.name]: event.target.value})
     }
-
+    const history = useHistory()
     const handleSubmit = (event) => {
+        
         event.preventDefault()
         addRecipe(newRecipe)
+        history.push('/userdashboard')
     }
 
     return (
