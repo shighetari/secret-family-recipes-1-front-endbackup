@@ -6,7 +6,8 @@ import {
     GET_RECIPE,
     FAVORITE_RECIPE,
     AXIOS_ERROR,
-    LOGIN_USER
+    LOGIN_USER,
+    UPDATE_RECIPE
 } from "../actions/index"
 
 //InitialState for global State
@@ -14,7 +15,8 @@ const initialState = {
     recipes: [],
     error: '',
     users: {},
-    refresh: false,
+    favRecipes: []
+    
 }
 
 const rootReducer = (state = initialState, action) => {
@@ -27,18 +29,31 @@ const rootReducer = (state = initialState, action) => {
         case ADD_RECIPE:
             return {
                 ...state,
-                recipes: action.payload
+                recipes: [...state.recipes, action.payload]
             }
         case REMOVE_RECIPE:
             return {
                 ...state,
-                // recipes: action.payload
+                recipes: state.recipes.filter(recipe => {
+                    return action.payload.id !== recipe.id
+                })
             }
         case GET_RECIPE:
             return {
                 ...state,
                 recipes: action.payload
             }
+            case UPDATE_RECIPE:
+                return {
+                    ...state,
+                    recipes: state.recipes.map(recipe => {
+                        if (recipe.id === action.payload.id) {
+                            return action.payload
+                        } else {
+                            return recipe
+                        }
+                    })
+                }
         case FAVORITE_RECIPE:
             return {
 

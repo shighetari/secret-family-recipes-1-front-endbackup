@@ -5,12 +5,14 @@ import {connect} from "react-redux"
 
 import '../App.scss'
 
+
 const initialState = {
         title: '',
-        source:'',
+        user:'',
         ingredients: '',
         instructions: '',
-        category: ''
+        category: '',
+        user_id: '',
 }
 const AddRecipeForm = ({addRecipe}) => {
     const [newRecipe, setNewRecipe] = useState(initialState)

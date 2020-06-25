@@ -4,25 +4,31 @@ import { motion } from 'framer-motion'
 import * as Yup from "yup";
 import "../App.scss";
 //imported axios with auth - fb
-import { axiosWithAuth } from "../utils/axiosWithAuth";
+// import { axiosWithAuth } from "../utils/axiosWithAuth";
 // import Axios from "axios"; //set up axios for R1
 import { useLocalStorage } from "../utils/useLocalStorage"; // added local storage
-
 //importing signup form schema
 import formSchema from './formSchema';
+import { connect } from "react-redux";
+import { signupUser } from "../actions";
+//setting up redux
+
+
 // importing modal
 import Modal from './Modal'
 
 //added init state for form state
 const initialState = {
   username: '',
+  email: '',
   password: '',
 }
 
-function SignupForm() {
+function SignupForm({signupUser}) {
 
   // const [formValues, setFormValues] = useState(initialState)
   const [formState, setFormState] = useLocalStorage(`formValues`, initialState)
+  // const [formState, setFormState] = useState(initialState)
   const [errors, setErrors] = useState(initialState);
   const [buttonDisabled, setButtonDisabled] = useState(true)
   const [showModal, setShowModal] = useState(false);
@@ -38,32 +44,23 @@ function SignupForm() {
   const history = useHistory()
 
   const postNewUsername = (newUsername) => {
-    axiosWithAuth().post('/api/auth/register', newUsername)
-      .then((res => {
-        console.log(res)
-        setFormState(initialState)
-        setShowModal(true)
-        setTimeout(()=>{
-          history.push("/userdashboard")
-        },3000)
-      }))
-      .catch((err) => {
-        console.log(err)
-        debugger
-      })
+    
+    signupUser(newUsername,  history)
 
   }
 
   //onSubmit
+ 
   const submitHandler = e => {
     e.preventDefault()
     const newUsername = {
       username: formState.username.trim(),
+      email: formState.email.trim(),
       password: formState.password.trim(),
     }
-
-    //pass in the function for axios call or useEffect
     postNewUsername(newUsername)
+    //pass in the function for axios call or useEffect
+   
   }
 
 
@@ -111,6 +108,17 @@ function SignupForm() {
           ></input>
           {errors.username ? (<p className="error">{errors.username}</p>) : null}
         </label>
+        <label className='form-label'>
+          Set your email
+          <input
+            className='form-input'
+            type="email"
+            name="email"
+            onChange={changeHandler}
+            value={formState.email} 
+          ></input>
+          {/* {errors.username ? (<p className="error">{errors.username}</p>) : null} */}
+        </label>
 
         <label className='form-label'>
           Set your password
@@ -136,4 +144,10 @@ function SignupForm() {
   );
 }
 
-export default SignupForm;
+// const MapStateToProps = state => {
+//   return {
+//     users: state.users
+//   }
+// }
+
+export default connect(null, {signupUser})(SignupForm)

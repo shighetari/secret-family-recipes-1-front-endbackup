@@ -1,35 +1,62 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 //redux
-import { editRecipe } from "../actions/index"
+import { editRecipe, getRecipe, getSpecificRecipe } from "../actions/index"
 import { connect } from "react-redux"
+import { useHistory } from 'react-router-dom'
+
 
 const initialState = {
     title: '',
-    source: '',
     ingredients: '',
     instructions: '',
-    category: ''
+    category: '',
+    user_id: '',
+    user: '',
+
 }
 
-const EditRecipe = ({ editRecipe }) => {
-    const [editedRecipe, setEditedRecipe] = useState(initialState)
 
+
+const EditRecipe = (props) => {
+    const [editedRecipe, setEditedRecipe] = useState(initialState)
+    const recipeID = props.recipe
+    // const recipeIDs = recipes.map((recipe) => {
+    //    return recipe.id
+    // })
+    // console.log(recipeIDs)
+    // console.log(props.recipes)
     const handleChange = (event) => {
         setEditedRecipe({ ...editedRecipe, [event.target.name]: event.target.value })
     }
 
-    const handleSubmit = (event) => {
-        event.preventDefault()
 
+    useEffect(() => {
+        setEditedRecipe({ ...props.recipeInfo })
+        console.log(props.recipeInfo)
+    }, [])
+
+    console.log(recipeID)
+    const reduxedit = () => {
+        console.log(recipeID)
+        props.editRecipe(recipeID, editedRecipe, props.isEditing, props.setIsEditing)
+    }
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        // console.log(recipeID)
+        // console.log(editedRecipe)
+        // props.editRecipe(editedRecipe, recipeID)
+        // props.setIsEditing(false)
+        reduxedit()
+        props.setIsEditing(false)
 
     }
 
+
     return (
         <>
-            <form 
-            className='recipe-form'
-            onSubmit={handleSubmit}>
-                <br /><label className='recipe-form-label'>Title Of Recipe </label>
+        { props.isEditing &&  
+            <form className='recipe-form' onSubmit={handleSubmit}>
+                <br /><label className='recipe-form-label' >Title Of Recipe </label>
                 <input
                     className='recipe-form-input'
                     onChange={handleChange}
@@ -71,9 +98,14 @@ const EditRecipe = ({ editRecipe }) => {
                 />
                 <br />
                 <button className='form-btn'> Update Recipe</button>
-            </form>
+            </form>}
         </>
     )
 }
 
-export default connect(null, { editRecipe })(EditRecipe)
+const mapStateToProps = state => {
+    return {
+        recipes: state.recipes
+    }
+}
+export default connect(mapStateToProps, { editRecipe, getSpecificRecipe })(EditRecipe)

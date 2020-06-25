@@ -27,23 +27,6 @@ function LoginForm({ loginUser }) {
   const submitHandler = e => {
     e.preventDefault()
     loginUser(formValues, history, setErrors, errors) //switched to redux
-    // axiosWithAuth().post(`/api/auth/login`, formValues) //antonios work
-    //   .then((res) => {
-    //     console.log(res)
-    //     window.localStorage.setItem("token", res.data.token)
-    //     history.push("/userdashboard")
-    //   })
-    //   .catch((err) => {
-    //     console.log(err)
-    //     setErrors({
-    //       ...errors,
-    //       message: "The Username or Password you entered does not exist. Please try again"
-    //     });
-    //     debugger
-    //   })
-    //   .finally(() => {
-
-    //   })
 
   }
 
@@ -70,6 +53,7 @@ function LoginForm({ loginUser }) {
             value={formValues.username}
           ></input>
         </label>
+  
         <label className="form-label">
           And your password
           <input
@@ -90,10 +74,10 @@ function LoginForm({ loginUser }) {
   );
 }
 
-const MapStateToProps = state => {
-  return {
+// const MapStateToProps = state => {
+//   return {
 
-  }
-}
+//   }
+// }
 
-export default connect(MapStateToProps, { loginUser })(LoginForm)
+export default connect(null, { loginUser })(LoginForm)

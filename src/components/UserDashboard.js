@@ -4,12 +4,12 @@ import RecipeList from './RecipeList'
 import EditRecipe from './EditRecipe'
 // redux
 import { connect } from 'react-redux'
-import { postUser } from '../actions/index'
+import { signupUser, editRecipe } from '../actions/index'
 
 import '../App.scss'
 
 
-const UserDashboard = (props, { postUser }) => {
+const UserDashboard = (props, { signupUser }) => {
     const users = props.users;
 
     console.log(users) // gave the state.users name 'users'
@@ -19,8 +19,9 @@ const UserDashboard = (props, { postUser }) => {
             <div className='dashboard'>
                 <h1>  UserDashboard </h1>
                 <div> Recipe List + Search by recipe title/category <RecipeList /></div>
-                <AddRecipeForm />
-                <EditRecipe />
+                
+                {/* <EditRecipe /> */}
+                
             </div>
         </>
     )
@@ -31,4 +32,4 @@ const mapStateToProps = state => {
         users: state.users
     }
 }
-export default connect(mapStateToProps, { postUser })(UserDashboard)
+export default connect(mapStateToProps, { signupUser })(UserDashboard)

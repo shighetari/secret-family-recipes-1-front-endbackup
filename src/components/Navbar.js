@@ -23,6 +23,7 @@ useEffect(() => {
     
         if (token) {
           window.localStorage.removeItem("token")
+          window.localStorage.removeItem("userID")
           setShowModal(true)
           setIsLoggedin(false)
           setTimeout(()=>{
