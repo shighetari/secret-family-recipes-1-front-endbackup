@@ -44,7 +44,6 @@ function SignupForm({signupUser}) {
   const history = useHistory()
 
   const postNewUsername = (newUsername) => {
-    
     signupUser(newUsername,  history)
 
   }
