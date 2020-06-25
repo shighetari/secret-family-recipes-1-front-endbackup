@@ -2,71 +2,92 @@ import React, { useState } from 'react'
 //redux
 import {addRecipe} from "../actions/index"
 import {connect} from "react-redux"
+import { useHistory } from 'react-router-dom'
 
+
+import '../App.scss'
 
 const initialState = {
         title: '',
-        source:'',
+        user:'',
         ingredients: '',
         instructions: '',
-        category: ''
+        category: '',
+        user_id: '',
 }
+
 const AddRecipeForm = ({addRecipe}) => {
     const [newRecipe, setNewRecipe] = useState(initialState)
 
     const handleChange = (event) => {
         setNewRecipe({...newRecipe, [event.target.name]: event.target.value})
     }
-
+    const history = useHistory()
     const handleSubmit = (event) => {
+        
         event.preventDefault()
         addRecipe(newRecipe)
+        history.push('/userdashboard')
     }
 
     return (
-        <form onSubmit={handleSubmit}>
-            <br/><label>Title Of Recipe </label>
+        <form 
+        className='recipe-form'
+        onSubmit={handleSubmit}>
+            <br/><label className='recipe-form-label'>Title Of Recipe </label>
             <input 
+                className='recipe-form-input'
                 onChange={handleChange}
                 name='title'
                 value={newRecipe.title}
-                placeholder='title of recipe'
                 required
             />
-            <br/> <label>Source: </label>
+            <br/> <label className='recipe-form-label'>Source: </label>
             <input 
+                className='recipe-form-input'
                 onChange={handleChange}
                 name='source'
                 value={newRecipe.source}
-                placeholder='title of source'
                 required
             />
-                <br/> <label>ingredients: </label>
+                <br/> <label className='recipe-form-label'>ingredients: </label>
             <input 
+                className='recipe-form-input'
                 onChange={handleChange}
                 name='ingredients'
                 value={newRecipe.ingredients}
-                placeholder='list of ingredients'
                 required
             />
-                        <br/> <label> instructions: </label>
+                        <br/> <label className='recipe-form-label'> instructions: </label>
             <input 
+                className='recipe-form-input'
                 onChange={handleChange}
                 name='instructions'
                 value={newRecipe.instructions}
                 placeholder='instructions'
-                required
+                // required
             />
-                        <br/> <label>Category: </label>
+                        <br/> <label className='recipe-form-label'>Category: </label>
             <input 
+                className='recipe-form-input'
                 onChange={handleChange}
                 name='category'
                 value={newRecipe.category}
                 placeholder='category'
-                required
+                // required
             />
             <br/>
-            <button> Add Recipe </button>
+            
+            <label>User_id </label>
+            <input 
+                onChange={handleChange}
+                name='user_id'
+                value={newRecipe.user_id}
+                placeholder='user_id'
+                // required
+            />
+            <br/>
+            <button className='form-btn'> Add Recipe </button>
         </form>
     )
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Link, Switch } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import './App.scss';
 // importing components
 import SignupForm from './components/SignupForm'
@@ -7,6 +7,8 @@ import LoginForm from './components/LoginForm'
 import UserDashboard from "./components/UserDashboard"
 import PrivateRoute from './components/PrivateRoute'
 import Navbar from './components/Navbar'
+import AddRecipeForm from './components/AddRecipeForm';
+import EditRecipe from './components/EditRecipe';
 // import Loader from "react-loader-spinner"; // saving this for the login for isLoading animation
 
 
@@ -34,7 +36,9 @@ function App() {
 
 
         {/* start of private routes */}
-        <Route path='/userdashboard/' component={UserDashboard} />
+        <PrivateRoute path='/userdashboard/' component={UserDashboard} />
+        <PrivateRoute path='/addrecipe' component={AddRecipeForm}/>
+        {/* <PrivateRoute path='/editrecipe/:id' component={EditRecipe}/>  */}
       </Switch>
 
     </div>

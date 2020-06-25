@@ -1,0 +1,12 @@
+
+.recipe-form{
+    @extend .form;
+}
+
+.recipe-form-label{
+    @extend .form-label;
+}
+
+.recipe-form-input{
+    @extend .form-input;
+}

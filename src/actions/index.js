@@ -1,4 +1,5 @@
 import { axiosWithAuth } from "../utils/axiosWithAuth"
+// const history = useHistory()
 //using axiosWithAuth
 export const GET_USER = "GET_USER"
 export const LOGIN_ERROR = "LOGIN_ERROR" //payload for the .catch in the axios req for login
@@ -11,22 +12,32 @@ export const FAVORITE_RECIPE = "FAVORITE_RECIPE"
 export const AXIOS_ERROR = "AXIOS_ERROR" // testing
 export const POSTNEW_USER = "POSTNEW_USER" // sign up
 export const LOGIN_USER = "LOGIN_USER" //login
-
+export const GET_SPECIFIC_RECIPE = "GET_SPECIFIC_RECIPE"
 
 //***********Start of user actions ***********
 export const getUser = () => dispatch => {
-    //not .get set up yet 
+    //not .get set up yet
+    axiosWithAuth().get('/:id')
+        .then((res) => {
+            console.log(res)
+        })
+        .catch((err) => {
+            console.log(err)
+            debugger
+        })
 
 }
 
 export const loginUser = (formValues, history, setErrors, errors) => dispatch => {
     //set loading to true when action is fired  before axios call fires
-    axiosWithAuth().post(`/api/auth/login`, formValues)
+    axiosWithAuth()
+        .post(`/api/auth/login`, formValues)
         .then((res) => {
-            // console.log(res.config.data)
+            console.log(res)
             window.localStorage.setItem("token", res.data.token)
+            window.localStorage.setItem("userID", res.data.user.id)
             history.push("/userdashboard")
-            dispatch({ type: LOGIN_USER, payload: formValues })
+            dispatch({ type: LOGIN_USER, payload: res.data.user })
         })
         .catch((err) => {
             console.log(err)
@@ -43,14 +54,19 @@ export const loginUser = (formValues, history, setErrors, errors) => dispatch =>
 }
 
 //sign up (axios.post)
-export const postUser = (newUser) => dispatch => {
+export const signupUser = (newUsername, history) => dispatch => {
     axiosWithAuth()
-        .post('api/auth/register', newUser)
+        .post('/api/auth/register', newUsername)
         .then((res) => {
             console.log(res)
+            window.localStorage.setItem("token", res.data.token)
+            window.localStorage.setItem("userID", res.data.newUser.id)
+            // setFormState(initialState)
+            history.push("/userdashboard")
         })
         .catch((err) => {
-            console.log(err)
+            console.log(err.response)
+            // debugger
         })
 }
 
@@ -60,30 +76,40 @@ export const postUser = (newUser) => dispatch => {
 //.post (Create) add
 export const addRecipe = (newRecipe) => dispatch => { //Will pass correct state information once forms are complete
     axiosWithAuth()
-        .post('/TBDWhenIseeData', newRecipe)
+        .post('/api/recipes/', newRecipe)
         .then((res) => {
             console.log(res)
+            dispatch({type: ADD_RECIPE, payload: res.data.newRecipe})
         })
         .catch((err) => {
-            debugger
+            // debugger
+            console.log(err.response)
         })
     // .finally(null)
 }
 
 
 //.delete (Delete)
-export const removeRecipe = () => dispatch => {
-
+export const removeRecipe = (id) => dispatch => {
+    axiosWithAuth()
+        .delete(`/api/recipes/${id}`)
+        .then((res) => {
+            console.log(res)
+            dispatch({type: REMOVE_RECIPE, payload: res.data.deletedRecipe})
+        })
+        .catch((err) => {
+            console.log(err)
+        })
 }
 
 
 //.get (Read) 
 export const getRecipe = () => dispatch => {
     axiosWithAuth()
-        .get('/tbd')
+        .get('/api/recipes/')
         .then((res) => {
             console.log(res) // waiting to see what the data looks like
-            // dispatch({ type: GET_RECIPE, payload: res.data})
+            dispatch({ type: GET_RECIPE, payload: res.data.recipes})
         })
         .catch((err) => {
             console.log(err)
@@ -93,9 +119,37 @@ export const getRecipe = () => dispatch => {
 
 
 //.put (Update) takes and ID and {object} to update
-export const editRecipe = () => dispatch => {
+export const editRecipe = (recipeID, editedRecipe) => dispatch => {
+    console.log(recipeID)
+    // history.push(`/userdashboard/${id}`)
+    // console.log(`displaying recipe ID from recipe card`, `${id}`)
+    // setIsEditing(true)
+    axiosWithAuth()
+        .put(`/api/recipes/${recipeID}`, editedRecipe)
+        .then((res) => {
+            console.log(editedRecipe)
+            console.log(recipeID)
+            console.log(res)
+            dispatch({type: UPDATE_RECIPE, payload: res.data.updatedRecipe})
+        })
+        .catch((err) => {
+            console.log(err.response)
+            console.log(err.message)
+            console.log(editedRecipe)
+            
+            // debugger
+        })
 
 
+}
+export const getSpecificRecipe = (id) => {
+    axiosWithAuth().get(`/api/recipes/${id}`)
+    .then((res) => {
+        console.log(res)
+    })
+    .catch((err) => {
+        console.log(err)
+    })
 }
 
 

@@ -4,31 +4,35 @@ import { connect } from "react-redux"
 //axios
 import { getRecipe } from "../actions"
 import Recipe from './Recipe'
+
+import '../App.scss'
 //props = state from mapstatetoprops 
 //{getRecipe} is an action from redux (actions.js) for the reducer
-const RecipeList = (props, { getRecipe }) => {
+const RecipeList = (props) => {
     const [search, setSearch] = useState('')
-
-
+    const getRecipe = props.getRecipe
+     //console.log(props.recipes) // redux state
     useEffect(() => {
         //dispatch action from redux here
-        console.log(props.recipes) // redux state
-        // getRecipe() // will remove when end points are given
-    }, [])
+
+        getRecipe()
+    }, []) //[getRecipe] return this after im done playing with edit
 
     const handleChange = (e) => {
         setSearch(e.target.value)
     }
-    const filterSearch = (recipes) => {
-        return recipes.filter(recipe => {
-            if (recipe.title.toLowerCase().includes(search.toLowerCase)
+    const filterSearch = () => {
+        return props.recipes.filter(recipe => {
+            // console.log(recipe)
+            if (recipe.title.toLowerCase().includes(search.toLowerCase())
                 ||
-                recipe.category.toLowerCase().includes(search.toLocaleLowerCase)) {
+                recipe.category.toLowerCase().includes(search.toLowerCase())) {
                 return recipe
             }
             return null
         })
     }
+ 
 
     return (
         <>
@@ -36,15 +40,24 @@ const RecipeList = (props, { getRecipe }) => {
             {/* inserted map here that will also return the Recipe component */}
             {/* adding search bar */}
             <input
+                className='searchbar'
                 type="text"
-                placeholder="search bar"
+                placeholder="search recepies"
                 name="searchbar"
                 value={search}
                 onChange={handleChange}
             />
-            {filterSearch(props.recipes).map((recipe) => {
+            {filterSearch().map((recipe) => {
                 return <Recipe key={recipe.id} recipe={recipe} />
+                
             })}
+            {/* {props.recipes.map(item => {
+                return (
+                    <div>
+                        {item.title}
+                    </div>
+                )
+            })} */}
         </>
     )
 
