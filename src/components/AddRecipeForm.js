@@ -10,11 +10,11 @@ import '../App.scss'
 
 const initialState = {
         title: '',
-        user:'',
+        user:'Randy', //will make dynamic with 
         ingredients: '',
         instructions: '',
         category: '',
-        user_id: '',
+        user_id: 1337, //will make user id dynamic by using .get req to fetch user id
 }
 
 const AddRecipeForm = ({addRecipe}) => {
@@ -76,14 +76,7 @@ const AddRecipeForm = ({addRecipe}) => {
                 required
             />
             
-            <br/> <label className='recipe-form-label'>user_id </label>
-            <input 
-                className='recipe-form-input'
-                onChange={handleChange}
-                name='user_id'
-                value={newRecipe.user_id}
-                required
-            />
+          
             <br/>
             <button className='form-btn'> Add Recipe </button>
         </form>

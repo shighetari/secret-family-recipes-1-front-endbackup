@@ -129,7 +129,7 @@ export const editRecipe = (recipeID, editedRecipe) => dispatch => {
         .then((res) => {
             console.log(editedRecipe)
             console.log(recipeID)
-            console.log(res)
+            console.log(res) //server returns .updatedRecipe
             dispatch({type: UPDATE_RECIPE, payload: res.data.updatedRecipe})
         })
         .catch((err) => {
@@ -142,7 +142,7 @@ export const editRecipe = (recipeID, editedRecipe) => dispatch => {
 
 
 }
-export const getSpecificRecipe = (id) => {
+export const getSpecificRecipe = (id) => { //not using rn was testing
     axiosWithAuth().get(`/api/recipes/${id}`)
     .then((res) => {
         console.log(res)
