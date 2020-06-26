@@ -10,14 +10,14 @@ import '../App.scss'
 
 const initialState = {
         title: '',
-        user:'Randy', //will make dynamic with 
+        // user:'Randy', //will make dynamic with 
         ingredients: '',
         instructions: '',
         category: '',
-        user_id: 1337, //will make user id dynamic by using .get req to fetch user id
+        // user_id: 1337, //will make user id dynamic by using .get req to fetch user id
 }
 
-const AddRecipeForm = ({addRecipe}) => {
+const AddRecipeForm = (props) => {
     const [newRecipe, setNewRecipe] = useState(initialState)
 
     const handleChange = (event) => {
@@ -27,7 +27,7 @@ const AddRecipeForm = ({addRecipe}) => {
     const handleSubmit = (event) => {
         
         event.preventDefault()
-        addRecipe(newRecipe)
+        props.addRecipe({...newRecipe, user_id: props.userInfo.id, user: props.userInfo.username})
         history.push('/userdashboard')
     }
 
@@ -48,7 +48,7 @@ const AddRecipeForm = ({addRecipe}) => {
                 className='recipe-form-input'
                 onChange={handleChange}
                 name='user'
-                value={newRecipe.user}
+                value={props.userInfo.username}
                 required
             />
                 <br/> <label className='recipe-form-label'>ingredients: </label>
@@ -82,5 +82,10 @@ const AddRecipeForm = ({addRecipe}) => {
         </form>
     )
 }
+const MapStateToProps = state => {
+    return {
+        userInfo: state.userInfo
+    }
+}
 
-export default connect(null, {addRecipe})(AddRecipeForm)
+export default connect(MapStateToProps, {addRecipe})(AddRecipeForm)

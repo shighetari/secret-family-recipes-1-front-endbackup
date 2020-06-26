@@ -85,7 +85,7 @@ const EditRecipe = (props) => {
                                     className='recipe-form-input'
                                     onChange={handleChange}
                                     name='user'
-                                    value={editedRecipe.user}
+                                    value={props.userInfo.username}
                                 // required
                                 />
                                 <br /> <label className='recipe-form-label'>ingredients: </label>
@@ -124,7 +124,8 @@ const EditRecipe = (props) => {
 
 const mapStateToProps = state => {
     return {
-        recipes: state.recipes
+        recipes: state.recipes,
+        userInfo: state.userInfo
     }
 }
 export default connect(mapStateToProps, { editRecipe })(EditRecipe)
